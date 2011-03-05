@@ -1,0 +1,676 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="256"
+   height="256"
+   id="svg13145"
+   version="1.1"
+   inkscape:version="0.48.0 r9654"
+   sodipodi:docname="passarinho.svg">
+  <defs
+     id="defs13147">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective13153" />
+    <inkscape:perspective
+       id="perspective13115"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath31355">
+      <path
+         d="M 0,504 504,504 504,0 0,0 0,504 z"
+         id="path31357"
+         inkscape:connector-curvature="0" />
+    </clipPath>
+    <linearGradient
+       x1="0"
+       y1="0"
+       x2="1"
+       y2="0"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.0356967,1.7934,1.7934,-0.0356967,210.375,334.478)"
+       spreadMethod="pad"
+       id="linearGradient31343">
+      <stop
+         style="stop-opacity: 1; stop-color: rgb(253, 222, 165);"
+         offset="0"
+         id="stop31345" />
+      <stop
+         style="stop-opacity: 1; stop-color: rgb(245, 168, 0);"
+         offset="1"
+         id="stop31347" />
+    </linearGradient>
+    <inkscape:perspective
+       id="perspective13222"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective13373"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient31343"
+       id="linearGradient3480"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.0356967,1.7934,1.7934,-0.0356967,210.375,334.478)"
+       spreadMethod="pad"
+       x1="0"
+       y1="0"
+       x2="1"
+       y2="0" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="375"
+     inkscape:cy="520"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1024"
+     inkscape:window-height="548"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata13150">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-796.36218)">
+    <g
+       id="g3371"
+       transform="matrix(0.36533862,0,0,0.36533862,0.04950068,724.14809)">
+      <g
+         id="g31311"
+         transform="matrix(-4.92377,0,0,-4.92377,1286.43,1889.13)"
+         style="fill:#ffcc00"
+         inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+         inkscape:export-xdpi="72"
+         inkscape:export-ydpi="72">
+        <g
+           id="g31313"
+           style="fill:#ffcc00">
+          <g
+             id="g31319"
+             style="fill:#ffcc00">
+            <g
+               id="g31321"
+               style="fill:#ffcc00">
+              <path
+                 d="m 174.725,316.049 c -10.35,-7.2 -23.001,-17.766 -30.053,-21.499 l 0,0 -21.138,3.297 0.171,-8.588 20.952,-0.238 c 5.897,-5.634 18.049,-14.409 32.593,-9.069 l 0,0 c 20.612,7.569 22.735,25.862 22.735,25.862 l 0,0 -0.199,10.018 c 0,0 -5.579,4.092 -13.096,4.092 l 0,0 c -3.668,0 -7.797,-0.974 -11.965,-3.875"
+                 style="fill:#ffcc00;stroke:none"
+                 id="path31329"
+                 inkscape:connector-curvature="0" />
+            </g>
+          </g>
+        </g>
+      </g>
+      <g
+         id="g31331"
+         transform="matrix(-4.92377,0,0,-4.92377,1286.43,1889.13)"
+         inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+         inkscape:export-xdpi="72"
+         inkscape:export-ydpi="72">
+        <g
+           id="g31333">
+          <g
+             id="g31339">
+            <g
+               id="g31341">
+              <path
+                 d="m 196.896,317.207 c -2.267,-0.061 0.489,-8.189 2.68,-7.014 l 0,0 c 2.191,1.174 5.106,5.644 5.106,5.644 l 0,0 c 0,0 -5.304,1.371 -7.648,1.371 l 0,0 c -0.048,0 -0.093,0 -0.138,-0.001"
+                 style="fill:url(#linearGradient3480);stroke:none"
+                 id="path31349"
+                 inkscape:connector-curvature="0" />
+            </g>
+          </g>
+        </g>
+      </g>
+      <g
+         id="g31351"
+         transform="matrix(-4.92377,0,0,-4.92377,1286.43,1889.13)"
+         inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+         inkscape:export-xdpi="72"
+         inkscape:export-ydpi="72">
+        <g
+           id="g31353"
+           clip-path="url(#clipPath31355)">
+          <g
+             id="g31359"
+             transform="translate(183.849,312.672)">
+            <path
+               d="M 0,0 C 0.518,-1.533 2.178,-2.352 3.71,-1.834 5.241,-1.314 6.065,0.347 5.542,1.879 5.025,3.412 3.363,4.23 1.829,3.712 0.301,3.191 -0.52,1.531 0,0"
+               style="fill:#1a171b;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="path31361"
+               inkscape:connector-curvature="0" />
+          </g>
+          <g
+             id="g31363"
+             transform="translate(186.318,313.508)">
+            <path
+               d="M 0,0 C 0.226,-0.664 0.95,-1.021 1.613,-0.795 2.28,-0.569 2.637,0.153 2.414,0.818 2.185,1.485 1.461,1.841 0.797,1.615 0.131,1.39 -0.226,0.667 0,0"
+               style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="path31365"
+               inkscape:connector-curvature="0" />
+          </g>
+        </g>
+      </g>
+      <g
+         id="g31367"
+         transform="matrix(-4.92377,0,0,-4.92377,1286.43,1889.13)"
+         style="fill:#ffff00"
+         inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+         inkscape:export-xdpi="72"
+         inkscape:export-ydpi="72">
+        <g
+           id="g31369"
+           style="fill:#ffff00">
+          <g
+             id="g31375"
+             style="fill:#ffff00">
+            <g
+               id="g31377"
+               style="fill:#ffff00">
+              <path
+                 d="m 141.956,321.849 c -3.748,-3.15 -1,-13.274 1.377,-14.27 l 0,0 c 0,0 -9.328,-4.474 -5.274,-12.135 l 0,0 c 4.054,-7.661 24.874,-9.776 37.721,8.873 l 0,0 c 0,0 -14.574,20.053 -26.998,20.056 l 0,0 c -2.396,0 -4.71,-0.745 -6.826,-2.524"
+                 style="fill:#ffff00;stroke:none"
+                 id="path31385"
+                 inkscape:connector-curvature="0" />
+            </g>
+          </g>
+        </g>
+      </g>
+      <g
+         id="g29995"
+         transform="matrix(3.24024,0,0,3.24024,-836.054,340.523)"
+         inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+         inkscape:export-xdpi="72"
+         inkscape:export-ydpi="72">
+        <g
+           inkscape:export-ydpi="72"
+           inkscape:export-xdpi="72"
+           inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+           style="fill:#ffcc00"
+           transform="matrix(1.25,0,0,-1.25,354.894,76.8593)"
+           id="g20316">
+          <path
+             id="path20318"
+             style="fill:#ffcc00;fill-opacity:1;fill-rule:nonzero;stroke:none"
+             d="M 0,0 C 0,0 5.903,-1.043 8.001,-2.926 L 0.248,-3.297 -1.075,-0.973 0,0 z"
+             inkscape:connector-curvature="0" />
+        </g>
+        <g
+           id="g29954">
+          <g
+             id="g20168"
+             transform="matrix(1.25,0,0,-1.25,191.717,664.583)"
+             style="fill:#5fbcd3"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20170"
+               style="fill:#5fbcd3">
+              <g
+                 id="g20176"
+                 style="fill:#5fbcd3">
+                <g
+                   id="g20178"
+                   style="fill:#5fbcd3">
+                  <path
+                     d="m 63.94,435.871 c 0,0 1.774,-3.374 6.628,-0.671 l 0,0 c 4.856,2.705 13.616,10.146 13.616,10.146 l 0,0 -1.033,1.283 c 0,0 -15.938,-9.618 -19.211,-10.758"
+                     style="fill:#5fbcd3;stroke:none"
+                     id="path20186"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20188"
+             transform="matrix(1.25,0,0,-1.25,191.717,664.583)"
+             style="fill:#2c89a0"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20190"
+               style="fill:#2c89a0">
+              <g
+                 id="g20196"
+                 style="fill:#2c89a0">
+                <g
+                   id="g20198"
+                   style="fill:#2c89a0">
+                  <path
+                     d="m 66.511,433.255 c 0,0 2.747,-3.113 7.26,0.129 l 0,0 c 4.516,3.241 11.77,11.598 11.77,11.598 l 0,0 -1.173,1.157 c 0,0 -14.735,-11.377 -17.857,-12.884"
+                     style="fill:#2c89a0;stroke:none"
+                     id="path20206"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20208"
+             transform="matrix(1.25,0,0,-1.25,191.717,664.583)"
+             style="fill:#006680"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20210"
+               style="fill:#006680">
+              <g
+                 id="g20216"
+                 style="fill:#006680">
+                <g
+                   id="g20218"
+                   style="fill:#006680">
+                  <path
+                     d="m 69.326,430.385 c 0,0 2.679,-2.621 6.807,1.101 l 0,0 c 4.127,3.722 10.804,12.666 10.804,12.666 l 0,0 -1.293,1.019 c 0,0 -13.383,-12.943 -16.318,-14.786"
+                     style="fill:#006680;stroke:none"
+                     id="path20226"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20228"
+             transform="matrix(1.25,0,0,-1.25,191.717,664.583)"
+             style="fill:#008080"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20230"
+               style="fill:#008080">
+              <g
+                 id="g20236"
+                 style="fill:#008080">
+                <g
+                   id="g20238"
+                   style="fill:#008080">
+                  <path
+                     d="m 73.44,428.836 c 0,0 3.324,-2.421 6.944,1.794 l 0,0 c 3.622,4.216 8.775,14.099 8.775,14.099 l 0,0 -1.413,0.847 c 0,0 -11.629,-14.538 -14.306,-16.74"
+                     style="fill:#008080;stroke:none"
+                     id="path20246"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20248"
+             transform="matrix(1.25,0,0,-1.25,191.717,664.583)"
+             style="fill:#008080"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20250"
+               style="fill:#008080">
+              <g
+                 id="g20256"
+                 style="fill:#008080">
+                <g
+                   id="g20258"
+                   style="fill:#008080">
+                  <path
+                     d="m 87.264,488.548 c 0.546,-0.467 -2.391,1.108 -3.162,1.765 l 0,0 c 0,0 -2.228,-4.162 2.556,-6.992 l 0,0 c 0.589,-0.349 -1.939,0.713 -2.706,1.208 l 0,0 c 0,0 -1.273,-3.386 1.845,-5.692 l 0,0 c -0.113,-0.324 -1.189,-3.732 2.226,-5.921 l 0,0 c -0.205,-1.233 -0.179,-3.714 2.69,-5.373 l 0,0 c 0.163,-1.421 0.971,-3.201 3.674,-4.354 l 0,0 c 0.278,-0.116 0.573,-0.232 0.884,-0.345 l 0,0 c 6.057,-6.415 12.009,-7.629 15.69,-4.874 l 0,0 c 4.253,3.185 7.317,9.487 -2.048,18.117 l 0,0 c -7.983,7.358 -17.244,14.664 -18.574,15.706 l 0,0 c -2.052,1.783 -3.727,3.312 -4.362,4.088 l 0,0 c 0,0 -2.925,-3.704 1.287,-7.333"
+                     style="fill:#008080;stroke:none"
+                     id="path20266"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20268"
+             transform="matrix(1.25,0,0,-1.25,191.717,664.583)"
+             style="fill:#00ccff"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20270"
+               style="fill:#00ccff">
+              <g
+                 id="g20276"
+                 style="fill:#00ccff">
+                <g
+                   id="g20278"
+                   style="fill:#00ccff">
+                  <path
+                     d="m 106.073,465.678 c -9.27,-8.96 -24.52,-19.872 -24.52,-19.872 l 0,0 c 0,0 16.915,-9.637 29.331,-6.165 l 0,0 c 12.417,3.472 15.451,17.788 20.317,27.677 l 0,0 c -0.49,4.863 -2.746,8.891 -7.469,8.892 l 0,0 c -3.987,0 -9.732,-2.87 -17.659,-10.532"
+                     style="fill:#00ccff;stroke:none"
+                     id="path20286"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20288"
+             transform="matrix(1.25,0,0,-1.25,191.717,664.583)"
+             style="fill:#008080"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20290"
+               style="fill:#008080">
+              <g
+                 id="g20296"
+                 style="fill:#008080">
+                <g
+                   id="g20298"
+                   style="fill:#008080">
+                  <path
+                     d="m 66.051,471.91 c -3.415,-0.055 -6.262,-0.027 -7.508,0.166 l 0,0 c 0,0 0.371,-5.919 7.351,-5.78 l 0,0 c 0.906,0.019 -3.166,-0.971 -4.435,-0.999 l 0,0 c 0,0 1.405,-5.762 8.251,-4.4 l 0,0 c 0.845,0.168 -2.41,-0.957 -3.544,-1.137 l 0,0 c 0,0 1.649,-4.237 6.497,-3.78 l 0,0 c 0.167,-0.396 2.018,-4.486 7.047,-3.671 l 0,0 c 0.844,-1.323 2.946,-3.623 7.022,-2.767 l 0,0 c 1.342,-1.194 3.589,-2.182 7.086,-0.991 l 0,0 c 0.357,0.121 0.731,0.262 1.115,0.416 l 0,0 c 11.042,-0.923 17.629,2.933 18.761,8.596 l 0,0 c 1.31,6.543 -1.108,15.005 -17.103,15.228 l 0,0 c -1.245,0.017 -2.499,0.025 -3.752,0.025 l 0,0 c -12.479,0 -24.864,-0.78 -26.788,-0.906"
+                     style="fill:#008080;stroke:none"
+                     id="path20306"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20320"
+             transform="matrix(1.25,0,0,-1.25,346.386,76.3783)"
+             style="fill:#ffcc00"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <path
+               d="M 0,0 C 0.194,-0.691 0.908,-1.093 1.6,-0.9 2.288,-0.707 2.692,0.007 2.498,0.698 2.305,1.388 1.59,1.791 0.9,1.598 0.21,1.405 -0.191,0.689 0,0"
+               style="fill:#ffcc00;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="path20322"
+               inkscape:connector-curvature="0" />
+          </g>
+          <g
+             id="g20324"
+             transform="matrix(1.25,0,0,-1.25,347.497,76.1115)"
+             style="fill:#241f1c"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <path
+               d="M 0,0 C 0.09,-0.323 0.423,-0.513 0.746,-0.422 1.069,-0.332 1.259,0.003 1.168,0.326 1.077,0.649 0.742,0.839 0.419,0.748 0.097,0.658 -0.091,0.324 0,0"
+               style="fill:#241f1c;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="path20326"
+               inkscape:connector-curvature="0" />
+          </g>
+        </g>
+      </g>
+      <g
+         id="g30039"
+         transform="matrix(3.03058,0,0,3.03058,-1181.87,380.767)"
+         inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+         inkscape:export-xdpi="72"
+         inkscape:export-ydpi="72">
+        <g
+           inkscape:export-ydpi="72"
+           inkscape:export-xdpi="72"
+           inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+           style="fill:#225500"
+           transform="matrix(1.25,0,0,-1.25,53.0315,677.432)"
+           id="g20028">
+          <g
+             style="fill:#225500"
+             id="g20030">
+            <g
+               style="fill:#225500"
+               id="g20036">
+              <g
+                 style="fill:#225500"
+                 id="g20038">
+                <path
+                   id="path20046"
+                   style="fill:#225500;stroke:none"
+                   d="m 419.545,445.983 c 0,0 7.254,-8.357 11.769,-11.599 l 0,0 c 4.514,-3.243 7.261,-0.13 7.261,-0.13 l 0,0 c -3.122,1.508 -17.857,12.885 -17.857,12.885 l 0,0 -1.173,-1.156 z"
+                   inkscape:connector-curvature="0" />
+              </g>
+            </g>
+          </g>
+        </g>
+        <g
+           transform="translate(-74.438,-19.4957)"
+           id="g29904">
+          <g
+             id="g20008"
+             transform="matrix(1.25,0,0,-1.25,126.583,695.598)"
+             style="fill:#112b00"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20010"
+               style="fill:#112b00">
+              <g
+                 id="g20016"
+                 style="fill:#112b00">
+                <g
+                   id="g20018"
+                   style="fill:#112b00">
+                  <path
+                     d="m 420.901,446.346 c 0,0 8.761,-7.44 13.616,-10.146 l 0,0 c 4.855,-2.703 6.63,0.671 6.63,0.671 l 0,0 c -3.274,1.14 -19.213,10.758 -19.213,10.758 l 0,0 -1.033,-1.283 z"
+                     style="fill:#112b00;stroke:none"
+                     id="path20026"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20048"
+             transform="matrix(1.25,0,0,-1.25,126.583,695.598)"
+             style="fill:#44aa00"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20050"
+               style="fill:#44aa00">
+              <g
+                 id="g20056"
+                 style="fill:#44aa00">
+                <g
+                   id="g20058"
+                   style="fill:#44aa00">
+                  <path
+                     d="m 418.148,445.152 c 0,0 6.678,-8.944 10.805,-12.666 l 0,0 c 4.128,-3.722 6.807,-1.101 6.807,-1.101 l 0,0 c -2.935,1.843 -16.318,14.786 -16.318,14.786 l 0,0 -1.294,-1.019 z"
+                     style="fill:#44aa00;stroke:none"
+                     id="path20066"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20068"
+             transform="matrix(1.25,0,0,-1.25,126.583,695.598)"
+             style="fill:#66ff00"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20070"
+               style="fill:#66ff00">
+              <g
+                 id="g20076"
+                 style="fill:#66ff00">
+                <g
+                   id="g20078"
+                   style="fill:#66ff00">
+                  <path
+                     d="m 415.927,445.729 c 0,0 5.153,-9.882 8.774,-14.099 l 0,0 c 3.622,-4.216 6.944,-1.793 6.944,-1.793 l 0,0 c -2.675,2.201 -14.305,16.739 -14.305,16.739 l 0,0 -1.413,-0.847 z"
+                     style="fill:#66ff00;stroke:none"
+                     id="path20086"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20088"
+             transform="matrix(1.25,0,0,-1.25,126.583,695.598)"
+             style="fill:#338000"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20090"
+               style="fill:#338000">
+              <g
+                 id="g20096"
+                 style="fill:#338000">
+                <g
+                   id="g20098"
+                   style="fill:#338000">
+                  <path
+                     d="m 414.747,492.793 c -1.331,-1.042 -10.591,-8.347 -18.574,-15.706 l 0,0 c -9.366,-8.63 -6.301,-14.932 -2.048,-18.117 l 0,0 c 3.68,-2.755 9.633,-1.541 15.689,4.874 l 0,0 c 0.312,0.113 0.607,0.229 0.884,0.346 l 0,0 c 2.704,1.153 3.512,2.932 3.675,4.353 l 0,0 c 2.869,1.658 2.895,4.14 2.691,5.373 l 0,0 c 3.413,2.189 2.339,5.597 2.225,5.921 l 0,0 c 3.117,2.306 1.844,5.693 1.844,5.693 l 0,0 c -0.766,-0.497 -3.294,-1.558 -2.705,-1.209 l 0,0 c 4.783,2.83 2.555,6.992 2.555,6.992 l 0,0 c -0.77,-0.657 -3.708,-2.232 -3.161,-1.764 l 0,0 c 4.212,3.628 1.287,7.332 1.287,7.332 l 0,0 c -0.635,-0.776 -2.31,-2.305 -4.362,-4.088"
+                     style="fill:#338000;stroke:none"
+                     id="path20106"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20108"
+             transform="matrix(1.25,0,0,-1.25,126.583,695.598)"
+             style="fill:#8dd35f"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20110"
+               style="fill:#8dd35f">
+              <g
+                 id="g20116"
+                 style="fill:#8dd35f">
+                <g
+                   id="g20118"
+                   style="fill:#8dd35f">
+                  <path
+                     d="m 373.885,468.318 c 4.866,-9.89 7.9,-24.205 20.317,-27.677 l 0,0 c 12.416,-3.472 29.331,6.165 29.331,6.165 l 0,0 c 0,0 -15.25,10.911 -24.521,19.872 l 0,0 c -7.926,7.662 -13.671,10.532 -17.658,10.532 l 0,0 c -4.723,-10e-4 -6.979,-4.029 -7.469,-8.892"
+                     style="fill:#8dd35f;stroke:none"
+                     id="path20126"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20128"
+             transform="matrix(1.25,0,0,-1.25,126.583,695.598)"
+             style="fill:#338000"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <g
+               id="g20130"
+               style="fill:#338000">
+              <g
+                 id="g20136"
+                 style="fill:#338000">
+                <g
+                   id="g20138"
+                   style="fill:#338000">
+                  <path
+                     d="m 408.495,473.791 c -15.995,-0.223 -18.413,-8.685 -17.103,-15.228 l 0,0 c 1.131,-5.663 7.719,-9.519 18.761,-8.596 l 0,0 c 0.384,-0.154 0.758,-0.295 1.115,-0.416 l 0,0 c 3.497,-1.191 5.743,-0.203 7.085,0.991 l 0,0 c 4.076,-0.856 6.179,1.443 7.023,2.767 l 0,0 c 5.029,-0.815 6.88,3.274 7.047,3.672 l 0,0 c 4.847,-0.458 6.497,3.779 6.497,3.779 l 0,0 c -1.134,0.179 -4.389,1.305 -3.544,1.137 l 0,0 c 6.845,-1.362 8.251,4.4 8.251,4.4 l 0,0 c -1.27,0.028 -5.341,1.018 -4.434,0.999 l 0,0 c 6.979,-0.138 7.35,5.78 7.35,5.78 l 0,0 c -1.246,-0.193 -4.094,-0.221 -7.508,-0.166 l 0,0 c -1.925,0.126 -14.311,0.906 -26.789,0.906 l 0,0 c -1.254,0 -2.506,-0.008 -3.751,-0.025"
+                     style="fill:#338000;stroke:none"
+                     id="path20146"
+                     inkscape:connector-curvature="0" />
+                </g>
+              </g>
+            </g>
+          </g>
+          <g
+             id="g20156"
+             transform="matrix(1.25,0,0,-1.25,594.763,106.625)"
+             style="fill:#ff6600"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <path
+               d="M 0,0 C 0,0 -5.903,-1.043 -8.001,-2.926 L -0.248,-3.297 1.075,-0.973 0,0 z"
+               style="fill:#ff6600;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="path20158"
+               inkscape:connector-curvature="0" />
+          </g>
+          <g
+             id="g20160"
+             transform="matrix(1.25,0,0,-1.25,603.272,106.144)"
+             style="fill:#803300"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <path
+               d="m 0,0 c -0.194,-0.691 -0.908,-1.093 -1.6,-0.9 -0.688,0.193 -1.092,0.907 -0.898,1.598 0.193,0.69 0.908,1.093 1.598,0.9 C -0.21,1.405 0.191,0.689 0,0"
+               style="fill:#803300;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="path20162"
+               inkscape:connector-curvature="0" />
+          </g>
+          <g
+             id="g20164"
+             transform="matrix(1.25,0,0,-1.25,602.161,105.877)"
+             style="fill:#000000"
+             inkscape:export-filename="C:\Users\star\Desktop\siteLUCIANA.png"
+             inkscape:export-xdpi="72"
+             inkscape:export-ydpi="72">
+            <path
+               d="m 0,0 c -0.09,-0.323 -0.423,-0.513 -0.746,-0.422 -0.323,0.09 -0.513,0.425 -0.422,0.748 0.091,0.323 0.426,0.513 0.749,0.422 C -0.097,0.658 0.091,0.324 0,0"
+               style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none"
+               id="path20166"
+               inkscape:connector-curvature="0" />
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
