@@ -1,7 +1,7 @@
 // $Id: EasyGL.pmod 12 2011-02-20 09:48:09Z mafferyew@googlemail.com $
 
 // EasyGL
-// Copyright 2011 Matthew Clarke <mafferyew@googlemail.com>
+// Copyright 2011 Matthew Clarke <pclar7@yahoo.co.uk>
 
 // This file is part of EasyGL.
 //
