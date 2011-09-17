@@ -44,11 +44,12 @@ public void draw( string text,
         if ( index < 0 || index >= NUM_FONT_CHARS )
         {
             dest->x += spacing;
-            continue;
-        } // if
-        
-        .EasyGL.draw_texture( my_font_chars[index], dest, a );
-        dest->x += my_font_chars[index]->original_w;
+        }
+        else
+        {
+            .EasyGL.draw_texture( my_font_chars[index], dest, a );
+            dest->x += my_font_chars[index]->original_w;
+        } // if ... else
     } // for
     
 } // draw()
