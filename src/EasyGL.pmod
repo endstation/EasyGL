@@ -66,6 +66,10 @@ object texture_from_file( string filename )
     else if ( has_suffix(filename, "svg") )
     {
         decoded = Image.SVG._decode(data);
+    }
+    else if ( has_suffix(filename, "jpg") )
+    {
+        decoded = Image.JPEG._decode(data);
     } // if ... else
 
     return texture_from_image( decoded["image"], decoded["alpha"] );
@@ -201,6 +205,60 @@ void draw_texture_section( object tex_data,
     glDisable( GL_TEXTURE_2D );
 
 } // draw_texture_section()
+
+// --------------------------------------------------
+
+// If you don't need texture scaling, just call draw_texture() for a tiny
+// bit of extra speed.
+void draw_texture_scaled( object tex_data,
+                          SDL.Rect dest,
+                          float opacity,
+                          float scale_factor,
+                          void|float rotation )                   
+{
+    glEnable( GL_TEXTURE_2D );
+    glBindTexture( GL_TEXTURE_2D, tex_data->texture_name );
+    glColor( 1.0, 1.0, 1.0, opacity );
+
+    if ( rotation )
+    {
+        glMatrixMode( GL_TEXTURE );
+        glPushMatrix();
+        glLoadIdentity();
+        glTranslate( 0.5, 0.5, 0.0 );
+        glRotate( rotation, 0.0, 0.0, 1.0 );
+        glTranslate( -0.5, -0.5, 0.0 );
+        glMatrixMode( GL_MODELVIEW );
+    } // if
+
+    glBegin(GL_QUADS);
+        // top-left
+        glTexCoord( 0.0, 0.0 );
+        glVertex( dest->x, dest->y );
+        // top-right
+        glTexCoord( 1.0, 0.0 ); 
+        glVertex( dest->x + ((tex_data->texture_w - 1) * scale_factor), 
+                  dest->y );
+        // bottom-right
+        glTexCoord( 1.0, 1.0 );
+        glVertex( dest->x + ((tex_data->texture_w - 1) * scale_factor),
+                  dest->y + ((tex_data->texture_h - 1) * scale_factor) );
+        // bottom-left
+        glTexCoord( 0.0, 1.0 );
+        glVertex( dest->x, 
+                  dest->y + ((tex_data->texture_h - 1) * scale_factor) );
+    glEnd();
+
+    if ( rotation )
+    {
+        glMatrixMode( GL_TEXTURE );
+        glPopMatrix();
+        glMatrixMode( GL_MODELVIEW );
+    } // if
+
+    glDisable( GL_TEXTURE_2D );
+
+} // draw_texture_scaled()
 
 // --------------------------------------------------
 
