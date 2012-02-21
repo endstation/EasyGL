@@ -1,5 +1,3 @@
-// $Id: EasyGL.pmod 12 2011-02-20 09:48:09Z mafferyew@googlemail.com $
-
 // EasyGL
 // Copyright 2011 Matthew Clarke <pclar7@yahoo.co.uk>
 
@@ -26,6 +24,8 @@ import GLU;
 
 
 int next_texture_name = 0;
+array(int) current_bg = 0;
+
 
 // --------------------------------------------------
 
@@ -55,8 +55,13 @@ void set_up( int window_w,
     
 // --------------------------------------------------
 
-object texture_from_file( string filename )
+// If this image has no alpha channel, you may wish to specify a background
+// color.  Otherwise if the image sides have to be expanded to become powers
+// of two, the extra pixels will be black by default.
+Texture_data texture_from_file( string filename, void|array(int) rgb_bg )
 {
+    current_bg = rgb_bg;
+
     string data = Image.load_file(filename);
     mapping decoded;
     if ( has_suffix(filename, "png") )
@@ -78,7 +83,8 @@ object texture_from_file( string filename )
 
 // --------------------------------------------------
 
-object texture_from_image( Image.Image img_rgb, void|Image.Image img_alpha )
+Texture_data texture_from_image( Image.Image img_rgb, 
+                                 void|Image.Image img_alpha )
 {
     int original_w = img_rgb->xsize();
     int original_h = img_rgb->ysize();
@@ -87,7 +93,15 @@ object texture_from_image( Image.Image img_rgb, void|Image.Image img_alpha )
     if ( original_w < pow_w || original_h < pow_h )
     {
         // Need to resize.
-        img_rgb = img_rgb->copy( 0, 0, pow_w - 1, pow_h - 1 );
+        if ( current_bg )
+        {
+            img_rgb = img_rgb->copy( 0, 0, pow_w - 1, pow_h - 1,
+                    current_bg[0], current_bg[1], current_bg[2] );
+        }
+        else
+        {
+            img_rgb = img_rgb->copy( 0, 0, pow_w - 1, pow_h - 1 );
+        } // if ... else
         if ( img_alpha )
         {
             img_alpha = img_alpha->copy( 0, 0, pow_w - 1, pow_h - 1 );
@@ -122,7 +136,7 @@ object texture_from_image( Image.Image img_rgb, void|Image.Image img_alpha )
 
 // --------------------------------------------------
 
-void draw_texture( object tex_data,
+void draw_texture( Texture_data tex_data,
                    SDL.Rect dest,
                    float opacity,
                    void|float rotation )                   
@@ -171,7 +185,7 @@ void draw_texture( object tex_data,
 
 // --------------------------------------------------
 
-void draw_texture_section( object tex_data,
+void draw_texture_section( Texture_data tex_data,
                            SDL.Rect dest,
                            SDL.Rect src,
                            float alpha )
@@ -210,7 +224,7 @@ void draw_texture_section( object tex_data,
 
 // If you don't need texture scaling, just call draw_texture() for a tiny
 // bit of extra speed.
-void draw_texture_scaled( object tex_data,
+void draw_texture_scaled( Texture_data tex_data,
                           SDL.Rect dest,
                           float opacity,
                           float scale_factor,

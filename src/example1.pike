@@ -36,7 +36,8 @@ int main()
 
     // Create a texture.  At the moment, both PNG and SVG files are supported.
     // It's very easy to add support for other formats if you need them.
-    object birds_tex = .EasyGL.texture_from_file( "passarinho.svg" );
+    .EasyGL.Texture_data birds_tex = .EasyGL.texture_from_file( 
+            "passarinho.svg" );
 
     // We're going to draw it at coordinates 50,50.
     SDL.Rect dest = SDL.Rect();
