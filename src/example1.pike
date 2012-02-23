@@ -41,11 +41,11 @@ int main()
 
     // We're going to draw it at coordinates 50,50.
     SDL.Rect dest = SDL.Rect();
-    dest->x = 178;
-    dest->y = 178;
+    dest->x = 10;
+    dest->y = 10;
     // The 3rd argument to draw_texture() is the opacity.  '1.0' means full
     // opacity; '0.0' full transparency.
-    .EasyGL.draw_texture( birds_tex, dest, 1.0, 10.0 );
+    .EasyGL.draw_texture( birds_tex, dest, 1.0 );
 
     // Swap buffers so we can see our texture.
     SDL.gl_swap_buffers();

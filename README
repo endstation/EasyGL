@@ -1,4 +1,4 @@
-EasyGL v1.0
+EasyGL v1.1
 
 EasyGL consists of one module (EasyGL.pmod) and one class (SFontGL.pike).
 They give you an easy way to set up and use a 2D OpenGL environment in Pike
@@ -11,7 +11,7 @@ Set up OpenGL and display a window in one line:
     .EasyGL.set_up( 640, 480, 0.0, 0.0, 0.0 );
 
 Create a texture from a file:
-    object tex = .EasyGL.texture_from_file( "my_sprite.png" );
+    .EasyGL.Texture_data tex = .EasyGL.texture_from_file( "my_sprite.png" );
 
 Draw it in your window:
     SDL.Rect dest = SDL.Rect();
