@@ -145,40 +145,33 @@ void draw_texture( Texture_data tex_data,
     glBindTexture( GL_TEXTURE_2D, tex_data->texture_name );
     glColor( 1.0, 1.0, 1.0, opacity );
 
+    glMatrixMode( GL_MODELVIEW );
+    glPushMatrix();
+    glLoadIdentity();
+    glTranslate( dest->x, dest->y, 0 );
     if ( rotation )
     {
-        glMatrixMode( GL_TEXTURE );
-        glPushMatrix();
-        glLoadIdentity();
-        glTranslate( 0.5, 0.5, 0.0 );
         glRotate( rotation, 0.0, 0.0, 1.0 );
-        glTranslate( -0.5, -0.5, 0.0 );
-        glMatrixMode( GL_MODELVIEW );
     } // if
 
+    float half_w = tex_data->original_w / 2.0;
+    float half_h = tex_data->original_h / 2.0;
     glBegin(GL_QUADS);
         // top-left
         glTexCoord( 0.0, 0.0 );
-        glVertex( dest->x, dest->y );
+        glVertex( -half_w, -half_h );
         // top-right
         glTexCoord( 1.0, 0.0 ); 
-        glVertex( dest->x + tex_data->texture_w - 1, dest->y );
+        glVertex( half_w, -half_h );
         // bottom-right
         glTexCoord( 1.0, 1.0 );
-        glVertex( dest->x + tex_data->texture_w - 1,
-                  dest->y + tex_data->texture_h - 1 );
+        glVertex( half_w, half_h );
         // bottom-left
         glTexCoord( 0.0, 1.0 );
-        glVertex( dest->x, dest->y + tex_data->texture_h - 1 );
+        glVertex( -half_w, half_h );
     glEnd();
 
-    if ( rotation )
-    {
-        glMatrixMode( GL_TEXTURE );
-        glPopMatrix();
-        glMatrixMode( GL_MODELVIEW );
-    } // if
-
+    glPopMatrix();
     glDisable( GL_TEXTURE_2D );
 
 } // draw_texture()
