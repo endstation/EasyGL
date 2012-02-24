@@ -25,7 +25,7 @@ import GL;
 
 int main()
 {
-    .EasyGL.set_up( 640, 480, 0.9, 0.7, 0.9 );
+    .EasyGL.set_up( 640, 480, ({0.9,0.7,0.9}) );
     .SFontGL my_font = .SFontGL( "DejaVuSerif_32_black.png" );
     // Default spacing (between words) is 5 pixels, which can sometimes be a bit
     // too short.
@@ -35,7 +35,7 @@ int main()
     SDL.Rect dest = SDL.Rect();
     dest->x = 50;
     dest->y = 50;
-    my_font->draw( "Hello, Pike!", dest );
+    my_font->draw( "Hello, Pike!", dest, 0.3 );
 
     dest->y = 150;
     my_font->draw_center( "How are you?", dest, 640 );

@@ -31,7 +31,7 @@ import GL;
 int main()
 {
     // Set up and clear screen.
-    .EasyGL.set_up( 640, 480, 0.3, 0.2, 0.3 );
+    .EasyGL.set_up( 640, 480, ({0.3,0.2,0.3}) );
     glClear( GL_COLOR_BUFFER_BIT );
 
     // Create a texture.  At the moment, both PNG and SVG files are supported.
@@ -46,7 +46,7 @@ int main()
     dest->y = 50;
     // The 2nd argument to draw() is the opacity.  '1.0' means full opacity; 0.0
     // full transparency.
-    tex->draw( dest, 1.0 );
+    tex->draw( dest, 1.0, 45.0 );
 
     // Swap buffers so we can see our texture.
     SDL.gl_swap_buffers();

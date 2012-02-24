@@ -27,15 +27,9 @@
 // --------------------------------------------------
 // PUBLIC METHODS
 
-public void draw( string text,
-                  SDL.Rect dest,
-                  void|float opacity ) 
+public void draw( string text, SDL.Rect dest, void|float opacity ) 
 {
-    float a = 1.0;
-    if ( opacity )
-    {
-        a = opacity;
-    } // if
+    opacity = opacity || 1.0;
 
     int len = sizeof( text );
     for ( int i = 0; i < len; ++i )
@@ -47,11 +41,11 @@ public void draw( string text,
         }
         else
         {
-            .EasyGL.draw_texture( my_font_chars[index], dest, a );
-            dest->x += my_font_chars[index]->original_w;
+            my_font_chars[index]->draw( dest, opacity );
+            dest->x += my_font_chars[index]->get_image_w();
         } // if ... else
     } // for
-    
+
 } // draw()
 
 // --------------------------------------------------
@@ -82,7 +76,7 @@ public int text_width( string text )
         }
         else
         {
-            width += my_font_chars[index]->original_w;
+            width += my_font_chars[index]->get_image_w();
         } // if ... else
     } // for
     
@@ -128,9 +122,9 @@ public void set_spacing( void|int spc )
 
 
 // --------------------------------------------------
-// STATIC METHODS
+// PROTECTED METHODS
 
-static void create( string image_file )
+protected void create( string image_file )
 {
     string my_data = Image.load_file( image_file );
     mapping m = Image.PNG._decode( my_data );
@@ -139,9 +133,9 @@ static void create( string image_file )
     // Lose 1 pixel from height - that's the top row with the pink spacers.
     font_height = my_image->ysize() - 1;
     
-    int x = 0;
+    int x     = 0;
     int begin = 0;
-    int end = 0;
+    int end   = 0;
     array(int) pink = ({ 255, 0, 255 });
     
     while ( x < my_image->xsize() )
@@ -161,7 +155,7 @@ static void create( string image_file )
                                                   end - 1, font_height );
             Image.Image section_a = my_alpha->copy( begin, 1, 
                                                     end - 1, font_height );
-            object o = .EasyGL.texture_from_image( section, section_a );
+            object o = .EasyGL.Texture( section, section_a );
             my_font_chars += ({ o });
         } // if 
         ++x;
@@ -180,7 +174,7 @@ private constant MIN_SPACING = 4;
 private constant MAX_SPACING = 20;
 private constant BEGIN_ASCII = 33;
 private constant NUM_FONT_CHARS = 94;
-private array( .EasyGL.Texture_data ) my_font_chars = ({});
+private array(.EasyGL.Texture) my_font_chars = ({});
 private int spacing = DEFAULT_SPACING;
 private int font_height;
 

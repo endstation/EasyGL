@@ -34,10 +34,14 @@ int initialized = 0;
 // subsystems will be initialized and double buffering will be turned on.
 void set_up( int window_w, 
              int window_h,
-             float clear_color_r,
-             float clear_color_g,
-             float clear_color_b )
+             array(float) clear_color )
 {
+    if ( sizeof(clear_color) != 3 )
+    {
+        error( "EasyGL.set_up(): array has %d elements rather than 3!\n",
+                sizeof(clear_color) );
+    } // if
+
     SDL.init( SDL.INIT_VIDEO|SDL.INIT_AUDIO|SDL.INIT_JOYSTICK );
     atexit( SDL.quit );
     SDL.gl_set_attribute( SDL.GL_DOUBLEBUFFER, 1 );
@@ -48,95 +52,12 @@ void set_up( int window_w,
     gluOrtho2D( 0.0, (float) window_w, (float) window_h, 0.0 );
     glEnable( GL_BLEND );
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-    glClearColor( clear_color_r, clear_color_g, clear_color_b );
+    glClearColor( @clear_color );
 
     initialized = 1;
 
 } // set_up()
     
-// --------------------------------------------------
-/*
-void draw_texture_section( Texture_data tex_data,
-                           SDL.Rect dest,
-                           SDL.Rect src,
-                           float alpha )
-{
-    glEnable( GL_TEXTURE_2D );
-    glBindTexture( GL_TEXTURE_2D, tex_data->texture_name );
-    glColor( 1.0, 1.0, 1.0, alpha );
-
-    float x1   = ((float) src->x) / tex_data->texture_w;
-    float x2   = (src->x + src->w - 1.0) / tex_data->texture_w;
-    float y1   = ((float) src->y) / tex_data->texture_h;
-    float y2   = (src->y + src->h - 1.0) / tex_data->texture_h;
-    int quad_w = src->w;
-    int quad_h = src->h;
-                    
-    glBegin( GL_QUADS );
-        // top-left
-        glTexCoord( x1, y1 );
-        glVertex( dest->x, dest->y );
-        // top-right
-        glTexCoord( x2, y1 );
-        glVertex( dest->x + quad_w, dest->y );
-        // bottom-right
-        glTexCoord( x2, y2 );
-        glVertex( dest->x + quad_w, dest->y + quad_h );
-        // bottom-left
-        glTexCoord( x1, y2 );
-        glVertex( dest->x, dest->y + quad_h );
-    glEnd();
-
-    glDisable( GL_TEXTURE_2D );
-
-} // draw_texture_section()
-
-// --------------------------------------------------
-
-// If you don't need texture scaling, just call draw_texture() for a tiny
-// bit of extra speed.
-void draw_texture_scaled( Texture_data tex_data,
-                          SDL.Rect dest,
-                          float opacity,
-                          float scale_factor,
-                          void|float rotation )                   
-{
-    glEnable( GL_TEXTURE_2D );
-    glBindTexture( GL_TEXTURE_2D, tex_data->texture_name );
-    glColor( 1.0, 1.0, 1.0, opacity );
-
-    float half_w = tex_data->texture_w * scale_factor / 2.0;
-    float half_h = tex_data->texture_h * scale_factor / 2.0;
-
-    glMatrixMode( GL_MODELVIEW );
-    glPushMatrix();
-    glLoadIdentity();
-    glTranslate( dest->x + half_w, dest->y + half_h, 0.0 );
-    if ( rotation )
-    {
-        glRotate( rotation, 0.0, 0.0, 1.0 );
-    } // if
-
-    glBegin(GL_QUADS);
-        // top-left
-        glTexCoord( 0.0, 0.0 );
-        glVertex( -half_w, -half_h );
-        // top-right
-        glTexCoord( 1.0, 0.0 ); 
-        glVertex( half_w, -half_h );
-        // bottom-right
-        glTexCoord( 1.0, 1.0 );
-        glVertex( half_w, half_h );
-        // bottom-left
-        glTexCoord( 0.0, 1.0 );
-        glVertex( -half_w, half_h );
-    glEnd();
-
-    glPopMatrix();
-    glDisable( GL_TEXTURE_2D );
-
-} // draw_texture_scaled()
-*/
 // --------------------------------------------------
 
 int next_power_of_two( int n )
@@ -222,6 +143,50 @@ class Texture
 
     } // draw_section()
 
+    public void draw_scaled( SDL.Rect dest,
+                             float opacity,
+                             float scale_factor,
+                             void|float rotation )                   
+    {
+        glEnable( GL_TEXTURE_2D );
+        glBindTexture( GL_TEXTURE_2D, name );
+        glColor( 1.0, 1.0, 1.0, opacity );
+
+        float half_scaled_w = texture_w * scale_factor / 2.0;
+        float half_scaled_h = texture_h * scale_factor / 2.0;
+
+        glMatrixMode( GL_MODELVIEW );
+        glPushMatrix();
+        glLoadIdentity();
+        glTranslate( dest->x + half_scaled_w, dest->y + half_scaled_h, 0.0 );
+        if ( rotation )
+        {
+            glRotate( rotation, 0.0, 0.0, 1.0 );
+        } // if
+
+        glBegin(GL_QUADS);
+            // top-left
+            glTexCoord( 0.0, 0.0 );
+            glVertex( -half_scaled_w, -half_scaled_h );
+            // top-right
+            glTexCoord( 1.0, 0.0 ); 
+            glVertex( half_scaled_w, -half_scaled_h );
+            // bottom-right
+            glTexCoord( 1.0, 1.0 );
+            glVertex( half_scaled_w, half_scaled_h );
+            // bottom-left
+            glTexCoord( 0.0, 1.0 );
+            glVertex( -half_scaled_w, half_scaled_h );
+        glEnd();
+
+        glPopMatrix();
+        glDisable( GL_TEXTURE_2D );
+
+    } // draw_scaled()
+
+    public int get_image_w() { return image_w; }
+    public int get_image_h() { return image_h; }
+
     // To prepare a PNG image, for example:
     // string data = Image.load_file( "mypic.png" );
     // mapping m = Image.PNG._decode( data );
@@ -230,8 +195,12 @@ class Texture
                            void|Image.Image alpha, 
                            void|array(int) rgb_bg )
     {
-        // FIXME: check for initialization!!!
-        rgb_bg = rgb_bg || ({ 0, 0, 0 });
+        if ( !initialized )
+        {
+            error( "EasyGL has not been initialized!\n" );
+        } // if
+
+        rgb_bg = rgb_bg || ({0,0,0});
 
         image_w = image->xsize();
         image_h = image->ysize();
