@@ -23,8 +23,7 @@ import GL;
 import GLU;
 
 
-int next_texture_name = 0;
-array(int) current_bg = 0;
+int initialized = 0;
 
 
 // --------------------------------------------------
@@ -51,134 +50,12 @@ void set_up( int window_w,
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
     glClearColor( clear_color_r, clear_color_g, clear_color_b );
 
+    initialized = 1;
+
 } // set_up()
     
 // --------------------------------------------------
-
-// If this image has no alpha channel, you may wish to specify a background
-// color.  Otherwise if the image sides have to be expanded to become powers
-// of two, the extra pixels will be black by default.
-Texture_data texture_from_file( string filename, void|array(int) rgb_bg )
-{
-    current_bg = rgb_bg;
-
-    string data = Image.load_file(filename);
-    mapping decoded;
-    if ( has_suffix(filename, "png") )
-    {
-        decoded = Image.PNG._decode(data);
-    }
-    else if ( has_suffix(filename, "svg") )
-    {
-        decoded = Image.SVG._decode(data);
-    }
-    else if ( has_suffix(filename, "jpg") )
-    {
-        decoded = Image.JPEG._decode(data);
-    } // if ... else
-
-    return texture_from_image( decoded["image"], decoded["alpha"] );
-
-} // texture_from_file()
-
-// --------------------------------------------------
-
-Texture_data texture_from_image( Image.Image img_rgb, 
-                                 void|Image.Image img_alpha )
-{
-    int original_w = img_rgb->xsize();
-    int original_h = img_rgb->ysize();
-    int pow_w = next_power_of_two( original_w );
-    int pow_h = next_power_of_two( original_h );
-    if ( original_w < pow_w || original_h < pow_h )
-    {
-        // Need to resize.
-        if ( current_bg )
-        {
-            img_rgb = img_rgb->copy( 0, 0, pow_w - 1, pow_h - 1,
-                    current_bg[0], current_bg[1], current_bg[2] );
-        }
-        else
-        {
-            img_rgb = img_rgb->copy( 0, 0, pow_w - 1, pow_h - 1 );
-        } // if ... else
-        if ( img_alpha )
-        {
-            img_alpha = img_alpha->copy( 0, 0, pow_w - 1, pow_h - 1 );
-        } // if
-    } // if
-
-    glEnable( GL_TEXTURE_2D );
-    glBindTexture( GL_TEXTURE_2D, next_texture_name );
-    glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-    glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-    glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     GL_CLAMP );
-    glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     GL_CLAMP );
-
-    if ( img_alpha )
-    {
-        glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, 0, 
-                      (["rgb":img_rgb, "alpha":img_alpha]) );
-    }
-    else
-    {
-        glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, 0, (["rgb":img_rgb]) );
-    } // if ... else
-    glDisable( GL_TEXTURE_2D );
-
-    Texture_data td = Texture_data( next_texture_name,
-                                    original_w, original_h,
-                                    pow_w, pow_h );
-    ++next_texture_name;
-    return td;
-
-} // texture_from_image()
-
-// --------------------------------------------------
-
-void draw_texture( Texture_data tex_data,
-                   SDL.Rect dest,
-                   float opacity,
-                   void|float rotation )                   
-{
-    glEnable( GL_TEXTURE_2D );
-    glBindTexture( GL_TEXTURE_2D, tex_data->texture_name );
-    glColor( 1.0, 1.0, 1.0, opacity );
-
-    float half_w = tex_data->texture_w / 2.0;
-    float half_h = tex_data->texture_h / 2.0;
-
-    glMatrixMode( GL_MODELVIEW );
-    glPushMatrix();
-    glLoadIdentity();
-    glTranslate( dest->x + half_w, dest->y + half_h, 0.0 );
-    if ( rotation )
-    {
-        glRotate( rotation, 0.0, 0.0, 1.0 );
-    } // if
-
-    glBegin(GL_QUADS);
-        // top-left
-        glTexCoord( 0.0, 0.0 );
-        glVertex( -half_w, -half_h );
-        // top-right
-        glTexCoord( 1.0, 0.0 ); 
-        glVertex( half_w, -half_h );
-        // bottom-right
-        glTexCoord( 1.0, 1.0 );
-        glVertex( half_w, half_h );
-        // bottom-left
-        glTexCoord( 0.0, 1.0 );
-        glVertex( -half_w, half_h );
-    glEnd();
-
-    glPopMatrix();
-    glDisable( GL_TEXTURE_2D );
-
-} // draw_texture()
-
-// --------------------------------------------------
-
+/*
 void draw_texture_section( Texture_data tex_data,
                            SDL.Rect dest,
                            SDL.Rect src,
@@ -259,7 +136,7 @@ void draw_texture_scaled( Texture_data tex_data,
     glDisable( GL_TEXTURE_2D );
 
 } // draw_texture_scaled()
-
+*/
 // --------------------------------------------------
 
 int next_power_of_two( int n )
@@ -276,27 +153,129 @@ int next_power_of_two( int n )
 
 // --------------------------------------------------
 
-class Texture_data
-{
-    int   texture_name;
-    int   original_w;
-    int   original_h;
-    int   texture_w;
-    int   texture_h;
-
-    void create( int texture_name_p,
-                 int original_w_p,
-                 int original_h_p,
-                 int texture_w_p,
-                 int texture_h_p )
+class Texture
+{ 
+    public void draw( SDL.Rect dest, float opacity, void|float rotation )
     {
-        texture_name = texture_name_p;
-        original_w   = original_w_p;
-        original_h   = original_h_p;
-        texture_w    = texture_w_p;
-        texture_h    = texture_h_p;
+        glEnable( GL_TEXTURE_2D );
+        glBindTexture( GL_TEXTURE_2D, name );
+        glColor( 1.0, 1.0, 1.0, opacity );
+
+        glMatrixMode( GL_MODELVIEW );
+        glPushMatrix();
+        glLoadIdentity();
+        glTranslate( dest->x + half_texture_w, dest->y + half_texture_h, 0.0 );
+        if ( rotation )
+        {
+            glRotate( rotation, 0.0, 0.0, 1.0 );
+        } // if
+
+        glBegin(GL_QUADS);
+            // top-left
+            glTexCoord( 0.0, 0.0 );
+            glVertex( -half_texture_w, -half_texture_h );
+            // top-right
+            glTexCoord( 1.0, 0.0 ); 
+            glVertex( half_texture_w, -half_texture_h );
+            // bottom-right
+            glTexCoord( 1.0, 1.0 );
+            glVertex( half_texture_w, half_texture_h );
+            // bottom-left
+            glTexCoord( 0.0, 1.0 );
+            glVertex( -half_texture_w, half_texture_h );
+        glEnd();
+
+        glPopMatrix();
+        glDisable( GL_TEXTURE_2D );
+
+    } // draw()
+        
+    public void draw_section( SDL.Rect dest, SDL.Rect src, float alpha )
+    {
+        glEnable( GL_TEXTURE_2D );
+        glBindTexture( GL_TEXTURE_2D, name );
+        glColor( 1.0, 1.0, 1.0, alpha );
+
+        float x1   = ((float) src->x) / texture_w;
+        float x2   = (src->x + src->w - 1.0) / texture_w;
+        float y1   = ((float) src->y) / texture_h;
+        float y2   = (src->y + src->h - 1.0) / texture_h;
+        int quad_w = src->w;
+        int quad_h = src->h;
+                    
+        glBegin( GL_QUADS );
+            // top-left
+            glTexCoord( x1, y1 );
+            glVertex( dest->x, dest->y );
+            // top-right
+            glTexCoord( x2, y1 );
+            glVertex( dest->x + quad_w, dest->y );
+            // bottom-right
+            glTexCoord( x2, y2 );
+            glVertex( dest->x + quad_w, dest->y + quad_h );
+            // bottom-left
+            glTexCoord( x1, y2 );
+            glVertex( dest->x, dest->y + quad_h );
+        glEnd();
+
+        glDisable( GL_TEXTURE_2D );
+
+    } // draw_section()
+
+    // To prepare a PNG image, for example:
+    // string data = Image.load_file( "mypic.png" );
+    // mapping m = Image.PNG._decode( data );
+    // .EasyGL.Texture tex = .EasyGL.Texture( m["image"], m["alpha"] );
+    protected void create( Image.Image image, 
+                           void|Image.Image alpha, 
+                           void|array(int) rgb_bg )
+    {
+        // FIXME: check for initialization!!!
+        rgb_bg = rgb_bg || ({ 0, 0, 0 });
+
+        image_w = image->xsize();
+        image_h = image->ysize();
+        texture_w = next_power_of_two( image_w );
+        texture_h = next_power_of_two( image_h );
+        half_texture_w = texture_w / 2;
+        half_texture_h = texture_h / 2;
+
+        // Do we need to resize?
+        if ( image_w < texture_w || image_h < texture_h )
+        {
+            image = image->copy( 0, 0, texture_w - 1, texture_h - 1, @rgb_bg );
+            if ( alpha )
+            {
+                alpha = alpha->copy( 0, 0, texture_w - 1, texture_h - 1 );
+            } // if
+        } // if
+
+        name = glGenTextures( 1 )[0];
+        glBindTexture( GL_TEXTURE_2D, name );
+        glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+        glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+        glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     GL_CLAMP );
+        glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     GL_CLAMP );
+
+        if ( alpha )
+        {
+            glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, 0, 
+                    (["rgb":image, "alpha":alpha]) );
+        }
+        else
+        {
+            glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, 0, (["rgb":image]) );
+        } // if ... else
 
     } // create()
 
-} // class Texture_data
+    private int name;
+    private int image_w;
+    private int image_h;
+    private int texture_w;
+    private int texture_h;
+    private int half_texture_w;
+    private int half_texture_h;
+
+} // class Texture
 

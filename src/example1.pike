@@ -36,16 +36,17 @@ int main()
 
     // Create a texture.  At the moment, both PNG and SVG files are supported.
     // It's very easy to add support for other formats if you need them.
-    .EasyGL.Texture_data birds_tex = .EasyGL.texture_from_file( 
-            "passarinho.svg" );
+    string data = Image.load_file( "passarinho.svg" );
+    mapping m   = Image.SVG._decode( data );
+    .EasyGL.Texture tex = .EasyGL.Texture( m["image"], m["alpha"] );
 
     // We're going to draw it at coordinates 50,50.
     SDL.Rect dest = SDL.Rect();
-    dest->x = 10;
-    dest->y = 10;
-    // The 3rd argument to draw_texture() is the opacity.  '1.0' means full
-    // opacity; '0.0' full transparency.
-    .EasyGL.draw_texture( birds_tex, dest, 1.0 );
+    dest->x = 50;
+    dest->y = 50;
+    // The 2nd argument to draw() is the opacity.  '1.0' means full opacity; 0.0
+    // full transparency.
+    tex->draw( dest, 1.0 );
 
     // Swap buffers so we can see our texture.
     SDL.gl_swap_buffers();
