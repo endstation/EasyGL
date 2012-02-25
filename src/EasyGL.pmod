@@ -36,11 +36,7 @@ void set_up( int window_w,
              int window_h,
              array(float) clear_color )
 {
-    if ( sizeof(clear_color) != 3 )
-    {
-        error( "EasyGL.set_up(): array has %d elements rather than 3!\n",
-                sizeof(clear_color) );
-    } // if
+    // TODO: check array size!
 
     SDL.init( SDL.INIT_VIDEO|SDL.INIT_AUDIO|SDL.INIT_JOYSTICK );
     atexit( SDL.quit );
@@ -195,11 +191,8 @@ class Texture
                            void|Image.Image alpha, 
                            void|array(int) rgb_bg )
     {
-        if ( !initialized )
-        {
-            error( "EasyGL has not been initialized!\n" );
-        } // if
-
+        // TODO: check that EasyGL has been initialized!
+        // TODO: check array size!
         rgb_bg = rgb_bg || ({0,0,0});
 
         image_w = image->xsize();
