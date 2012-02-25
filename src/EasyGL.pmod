@@ -56,6 +56,53 @@ void set_up( int window_w,
     
 // --------------------------------------------------
 
+void draw_box( SDL.Rect r, Image.Color.Color c, void|float line_w )
+{
+    glLineWidth( line_w || 1.0 );
+    glEnable( GL_LINE_SMOOTH );
+    glColor( @c->rgbf(), 1.0 );
+    glBegin( GL_LINE_LOOP );
+        glVertex( r->x, r->y, 0 );
+        glVertex( r->x + r->w, r->y, 0 );
+        glVertex( r->x + r->w, r->y + r->h, 0 );
+        glVertex( r->x, r->y + r->h, 0 );
+    glEnd();
+
+} // draw_box()
+
+// --------------------------------------------------
+
+void fill_box( SDL.Rect r, Image.Color.Color c )
+{
+    glColor( @c->rgbf(), 1.0 );
+    glBegin( GL_QUADS );
+        glVertex( r->x, r->y, 0 );
+        glVertex( r->x + r->w, r->y, 0 );
+        glVertex( r->x + r->w, r->y + r->h, 0 );
+        glVertex( r->x, r->y + r->h, 0 );
+    glEnd();
+
+} // draw_box()
+
+// --------------------------------------------------
+
+void draw_line( SDL.Rect from, 
+                SDL.Rect to, 
+                Image.Color.Color c, 
+                void|float line_w )
+{
+    glLineWidth( line_w || 1.0 );
+    glEnable( GL_LINE_SMOOTH );
+    glColor( @c->rgbf(), 1.0 );
+    glBegin( GL_LINES );
+        glVertex( from->x, from->y, 0 );
+        glVertex( to->x, to->y, 0 );
+    glEnd();
+
+} // draw_line()
+
+// --------------------------------------------------
+
 int next_power_of_two( int n )
 {
     int x = 2;

@@ -47,6 +47,10 @@ int main()
     // The 2nd argument to draw() is the opacity.  '1.0' means full opacity; 0.0
     // full transparency.
     tex->draw( dest, 1.0, 45.0 );
+    .EasyGL.fill_box( SDL.Rect(300,200,100,100), Image.Color.gold );
+    .EasyGL.draw_line( SDL.Rect(50,450), SDL.Rect(600,30), Image.Color.white, 
+            5.0 );
+    .EasyGL.draw_box( SDL.Rect(100,100,150,150), Image.Color.pink2, 3.0 );
 
     // Swap buffers so we can see our texture.
     SDL.gl_swap_buffers();
