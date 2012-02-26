@@ -41,17 +41,26 @@ int main()
     .EasyGL.Texture tex = .EasyGL.Texture( m["image"], m["alpha"] );
 
     // We're going to draw it at coordinates 50,50.
-    SDL.Rect dest = SDL.Rect();
-    dest->x = 50;
-    dest->y = 50;
+    .EasyGL.Rectf dest = .EasyGL.Rectf( 50.0, 50.0 );
     // The 2nd argument to draw() is the opacity.  '1.0' means full opacity; 0.0
     // full transparency.
-    tex->draw( dest, 1.0, 45.0 );
-    .EasyGL.fill_box( SDL.Rect(300,200,100,100), Image.Color.gold );
-    .EasyGL.draw_line( SDL.Rect(50,450), SDL.Rect(600,30), Image.Color.white, 
-            5.0 );
-    .EasyGL.draw_box( SDL.Rect(100,100,150,150), Image.Color.pink2, 3.0 );
+    //tex->draw( dest, 1.0, 45.0 );
 
+    .EasyGL.Rectf section = .EasyGL.Rectf( 127.0, 124.0, 252.0, 238.0 );
+    dest->x0 = 300.0;
+    dest->y0 = 300.0;
+    tex->draw_section( dest, section, 1.0 );
+    tex->draw_scaled( .EasyGL.Rectf(50.0,50.0), 1.0, 0.8 );
+    tex->draw( .EasyGL.Rectf(100.0,100.0), 1.0 );
+
+    /*
+    .EasyGL.fill_box( .EasyGL.Rectf(300.0,200.0,400.0,300.0), 
+                      Image.Color.gold );
+    .EasyGL.draw_line( .EasyGL.Rectf(50.0,450.0,600.0,30.0), 
+                       Image.Color.white, 5.0 );
+    .EasyGL.draw_box( .EasyGL.Rectf(100.0,100.0,250.0,250.0), 
+                      Image.Color.pink2, 3.0 );
+    */
     // Swap buffers so we can see our texture.
     SDL.gl_swap_buffers();
     sleep( 5 );

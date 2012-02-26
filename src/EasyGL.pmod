@@ -56,38 +56,37 @@ void set_up( int window_w,
     
 // --------------------------------------------------
 
-void draw_box( SDL.Rect r, Image.Color.Color c, void|float line_w )
+void draw_box( Rectf r, Image.Color.Color c, void|float line_w )
 {
     glLineWidth( line_w || 1.0 );
     glEnable( GL_LINE_SMOOTH );
     glColor( @c->rgbf(), 1.0 );
     glBegin( GL_LINE_LOOP );
-        glVertex( r->x, r->y, 0 );
-        glVertex( r->x + r->w, r->y, 0 );
-        glVertex( r->x + r->w, r->y + r->h, 0 );
-        glVertex( r->x, r->y + r->h, 0 );
+        glVertex( r->x0, r->y0, 0.0 );
+        glVertex( r->x1, r->y0, 0.0 );
+        glVertex( r->x1, r->y1, 0.0 );
+        glVertex( r->x0, r->y1, 0.0 );
     glEnd();
 
 } // draw_box()
 
 // --------------------------------------------------
 
-void fill_box( SDL.Rect r, Image.Color.Color c )
+void fill_box( Rectf r, Image.Color.Color c )
 {
     glColor( @c->rgbf(), 1.0 );
     glBegin( GL_QUADS );
-        glVertex( r->x, r->y, 0 );
-        glVertex( r->x + r->w, r->y, 0 );
-        glVertex( r->x + r->w, r->y + r->h, 0 );
-        glVertex( r->x, r->y + r->h, 0 );
+        glVertex( r->x0, r->y0, 0.0 );
+        glVertex( r->x1, r->y0, 0.0 );
+        glVertex( r->x1, r->y1, 0.0 );
+        glVertex( r->x0, r->y1, 0.0 );
     glEnd();
 
 } // draw_box()
 
 // --------------------------------------------------
 
-void draw_line( SDL.Rect from, 
-                SDL.Rect to, 
+void draw_line( Rectf from_to, 
                 Image.Color.Color c, 
                 void|float line_w )
 {
@@ -95,8 +94,8 @@ void draw_line( SDL.Rect from,
     glEnable( GL_LINE_SMOOTH );
     glColor( @c->rgbf(), 1.0 );
     glBegin( GL_LINES );
-        glVertex( from->x, from->y, 0 );
-        glVertex( to->x, to->y, 0 );
+        glVertex( from_to->x0, from_to->y0 );
+        glVertex( from_to->x1, from_to->y1 );
     glEnd();
 
 } // draw_line()
@@ -117,9 +116,34 @@ int next_power_of_two( int n )
 
 // --------------------------------------------------
 
+// Similar to SDL.Rect, except it uses floats rather than ints and holds the
+// corners of the rectangle rather than width and height.
+class Rectf
+{
+    public float x0;
+    public float y0;
+    public float x1;
+    public float y1;
+
+    protected void create( void|float x0_p,
+                           void|float y0_p,
+                           void|float x1_p,
+                           void|float y1_p )
+    {
+        x0 = x0_p || 0.0;
+        y0 = y0_p || 0.0;
+        x1 = x1_p || 0.0;
+        y1 = y1_p || 0.0;
+
+    } // create()
+
+} // class Rectf
+
+// --------------------------------------------------
+
 class Texture
 { 
-    public void draw( SDL.Rect dest, float opacity, void|float rotation )
+    public void draw( .EasyGL.Rectf dest, float opacity, void|float rotation )
     {
         glEnable( GL_TEXTURE_2D );
         glBindTexture( GL_TEXTURE_2D, name );
@@ -128,7 +152,8 @@ class Texture
         glMatrixMode( GL_MODELVIEW );
         glPushMatrix();
         glLoadIdentity();
-        glTranslate( dest->x + half_texture_w, dest->y + half_texture_h, 0.0 );
+        glTranslate( dest->x0 + half_texture_w, dest->y0 + half_texture_h,
+                0.0 );
         if ( rotation )
         {
             glRotate( rotation, 0.0, 0.0, 1.0 );
@@ -154,39 +179,39 @@ class Texture
 
     } // draw()
         
-    public void draw_section( SDL.Rect dest, SDL.Rect src, float alpha )
+    public void draw_section( Rectf dest, Rectf src, float alpha )
     {
         glEnable( GL_TEXTURE_2D );
         glBindTexture( GL_TEXTURE_2D, name );
         glColor( 1.0, 1.0, 1.0, alpha );
 
-        float x1   = ((float) src->x) / texture_w;
-        float x2   = (src->x + src->w - 1.0) / texture_w;
-        float y1   = ((float) src->y) / texture_h;
-        float y2   = (src->y + src->h - 1.0) / texture_h;
-        int quad_w = src->w;
-        int quad_h = src->h;
+        float x1 = src->x0 / texture_w;
+        float x2 = src->x1 / texture_w;
+        float y1 = src->y0 / texture_h;
+        float y2 = src->y1 / texture_h;
+        dest->x1 = dest->x0 + src->x1 - src->x0;
+        dest->y1 = dest->y0 + src->y1 - src->y0;
                     
         glBegin( GL_QUADS );
             // top-left
             glTexCoord( x1, y1 );
-            glVertex( dest->x, dest->y );
+            glVertex( dest->x0, dest->y0 );
             // top-right
             glTexCoord( x2, y1 );
-            glVertex( dest->x + quad_w, dest->y );
+            glVertex( dest->x1, dest->y0 );
             // bottom-right
             glTexCoord( x2, y2 );
-            glVertex( dest->x + quad_w, dest->y + quad_h );
+            glVertex( dest->x1, dest->y1 );
             // bottom-left
             glTexCoord( x1, y2 );
-            glVertex( dest->x, dest->y + quad_h );
+            glVertex( dest->x0, dest->y1 );
         glEnd();
 
         glDisable( GL_TEXTURE_2D );
 
     } // draw_section()
 
-    public void draw_scaled( SDL.Rect dest,
+    public void draw_scaled( Rectf dest,
                              float opacity,
                              float scale_factor,
                              void|float rotation )                   
@@ -201,7 +226,7 @@ class Texture
         glMatrixMode( GL_MODELVIEW );
         glPushMatrix();
         glLoadIdentity();
-        glTranslate( dest->x + half_scaled_w, dest->y + half_scaled_h, 0.0 );
+        glTranslate( dest->x0 + half_scaled_w, dest->y0 + half_scaled_h, 0.0 );
         if ( rotation )
         {
             glRotate( rotation, 0.0, 0.0, 1.0 );
