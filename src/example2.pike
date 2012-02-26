@@ -32,12 +32,10 @@ int main()
     my_font->set_spacing( 15 );
 
     glClear( GL_COLOR_BUFFER_BIT );
-    SDL.Rect dest = SDL.Rect();
-    dest->x = 50;
-    dest->y = 50;
+    .EasyGL.Rectf dest = .EasyGL.Rectf( 50.0, 50.0 );
     my_font->draw( "Hello, Pike!", dest, 0.3 );
 
-    dest->y = 150;
+    dest->y0 = 150.0;
     my_font->draw_center( "How are you?", dest, 640 );
 
     SDL.gl_swap_buffers();

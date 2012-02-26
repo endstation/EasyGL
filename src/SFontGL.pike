@@ -27,7 +27,7 @@
 // --------------------------------------------------
 // PUBLIC METHODS
 
-public void draw( string text, SDL.Rect dest, void|float opacity ) 
+public void draw( string text, .EasyGL.Rectf dest, void|float opacity ) 
 {
     opacity = opacity || 1.0;
 
@@ -37,12 +37,12 @@ public void draw( string text, SDL.Rect dest, void|float opacity )
         int index = text[i] - BEGIN_ASCII;
         if ( index < 0 || index >= NUM_FONT_CHARS )
         {
-            dest->x += spacing;
+            dest->x0 += spacing;
         }
         else
         {
             my_font_chars[index]->draw( dest, opacity );
-            dest->x += my_font_chars[index]->get_image_w();
+            dest->x0 += my_font_chars[index]->get_image_w();
         } // if ... else
     } // for
 
@@ -51,12 +51,12 @@ public void draw( string text, SDL.Rect dest, void|float opacity )
 // --------------------------------------------------
 
 public void draw_center( string text,
-                         SDL.Rect dest,
+                         .EasyGL.Rectf dest,
                          int screen_width,
                          void|float opacity )
 {
     int tw = text_width( text );
-    dest->x = (screen_width - tw) / 2;
+    dest->x0 = (screen_width - tw) / 2.0;
     draw( text, dest, opacity );
     
 } // draw_center()
