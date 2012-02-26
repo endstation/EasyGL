@@ -41,7 +41,7 @@ public void draw( string text, .EasyGL.Rectf dest, void|float opacity )
         }
         else
         {
-            my_font_chars[index]->draw( dest, opacity );
+            my_font_chars[index]->draw( 0, dest, opacity );
             dest->x0 += my_font_chars[index]->get_image_w();
         } // if ... else
     } // for
@@ -155,7 +155,9 @@ protected void create( string image_file )
                                                   end - 1, font_height );
             Image.Image section_a = my_alpha->copy( begin, 1, 
                                                     end - 1, font_height );
-            object o = .EasyGL.Texture( section, section_a );
+            object o = .EasyGL.Texture( 
+                    ({ (["image":section,"alpha":section_a]) }) );
+
             my_font_chars += ({ o });
         } // if 
         ++x;
