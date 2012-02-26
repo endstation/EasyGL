@@ -20,7 +20,6 @@
 
 
 import GL;
-import GLU;
 
 
 int initialized = 0;
@@ -45,7 +44,7 @@ void set_up( int window_w,
     
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    gluOrtho2D( 0.0, (float) window_w, (float) window_h, 0.0 );
+    glOrtho( 0.0, (float) window_w, (float) window_h, 0.0, -1.0, 1.0 );
     glEnable( GL_BLEND );
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
     glClearColor( @clear_color );
@@ -259,8 +258,8 @@ class Texture
     // string data = Image.load_file( "mypic.png" );
     // mapping m = Image.PNG._decode( data );
     // .EasyGL.Texture tex = .EasyGL.Texture( m["image"], m["alpha"] );
-    protected void create( Image.Image image, 
-                           void|Image.Image alpha, 
+    protected void create( /*Image.Image*/mixed image, 
+                           void|/*Image.Image*/mixed alpha, 
                            void|array(int) rgb_bg )
     {
         // TODO: check that EasyGL has been initialized!
