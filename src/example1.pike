@@ -1,7 +1,5 @@
-// $Id: example1.pike 12 2011-02-20 09:48:09Z mafferyew@googlemail.com $
-
 // EasyGL
-// Copyright 2011 Matthew Clarke <pclar7@yahoo.co.uk>
+// Copyright 2011,2012 Matthew Clarke <pclar7@yahoo.co.uk>
 
 // This file is part of EasyGL.
 //
@@ -35,11 +33,9 @@ int main()
     SDL.set_caption( "EasyGL example #1", "" );
     glClear( GL_COLOR_BUFFER_BIT );
 
-    // Create a texture.  At the moment, both PNG and SVG files are supported.
+    // Create a texture.  At the moment, PNG, JPG and SVG files are supported.
     // It's very easy to add support for other formats if you need them.
-    string data = Image.load_file( "passarinho.svg" );
-    mapping m   = Image.SVG._decode( data );
-    .EasyGL.Texture tex = .EasyGL.Texture( ({m}) );
+    .EasyGL.Texture tex = .EasyGL.Texture( ({"passarinho.svg"}) );
 
     // We're going to draw it at coordinates 50,50.
     .EasyGL.Rectf dest = .EasyGL.Rectf( 50.0, 50.0 );

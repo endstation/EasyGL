@@ -1,7 +1,5 @@
-// $Id: example2.pike 12 2011-02-20 09:48:09Z mafferyew@googlemail.com $
-
 // EasyGL
-// Copyright 2011 Matthew Clarke <pclar7@yahoo.co.uk>
+// Copyright 2011,2012 Matthew Clarke <pclar7@yahoo.co.uk>
 
 // This file is part of EasyGL.
 //
@@ -20,6 +18,7 @@
 
 
 // Load a font image into SFontGL and write some text to the screen.
+#pragma strict_types
 
 import GL;
 
@@ -27,7 +26,7 @@ int main()
 {
     .EasyGL.set_up( 640, 480, ({0.9,0.7,0.9}) );
     SDL.set_caption( "EasyGL example #2", "" );
-    .SFontGL my_font = .SFontGL( "DejaVuSerif_32_black.png" );
+    .EasyGL.SFont my_font = .EasyGL.SFont( "DejaVuSerif_32_black.png" );
     // Default spacing (between words) is 5 pixels, which can sometimes be a bit
     // too short.
     my_font->set_spacing( 15 );
