@@ -236,8 +236,12 @@ public void draw_scaled(
 
 // --------------------------------------------------
 
-public int get_image_w() { return image_w; }
-public int get_image_h() { return image_h; }
+public int get_image_w()        { return image_w; }
+public int get_image_h()        { return image_h; }
+public int get_texture_w()      { return texture_w; }
+public int get_texture_h()      { return texture_h; }
+public int get_half_texture_w() { return half_texture_w; }
+public int get_half_texture_h() { return half_texture_h; }
 
 
 
@@ -334,7 +338,16 @@ private array(mapping) files_to_mappings( array(string) files )
     foreach ( files, string my_file )
     {
         string data = Image.load_file( my_file );
-        mapping m = Image.ANY._decode( data );
+        // Image.ANY doesn't support SVG files.
+        mapping m;
+        if ( has_suffix(lower_case(my_file), "svg") )
+        {
+            m = Image.SVG._decode( data );
+        }
+        else
+        {
+            m = Image.ANY._decode( data );
+        } // if ... else
         ms = Array.push( ms, m );
     } // foreach
 
@@ -534,6 +547,9 @@ public float y1;
 
 // --------------------------------------------------
 // PUBLIC METHODS
+// Convenience methods for getting width and height.
+public float w() { return x1 - x0; }
+public float h() { return y1 - y0; }
 
 
 
