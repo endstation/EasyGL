@@ -550,6 +550,7 @@ public float y1;
 // Convenience methods for getting width and height.
 public float w() { return x1 - x0; }
 public float h() { return y1 - y0; }
+public void clear() { x0 = y0 = x1 = y1 = 0.0; }
 
 
 
