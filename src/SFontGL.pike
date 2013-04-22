@@ -24,9 +24,15 @@
 
 
 
+#pragma strict_types
+
+
 // --------------------------------------------------
 // PUBLIC METHODS
-
+// FIXME: this method alters 'dest'.  Would be best to make this a 'dummy'
+// method that makes a copy of that Rectf and then calls a private method
+// that does all the work (and calls itself recursively) on that copy.
+// See also draw_center().
 public void draw( string text, .EasyGL.Rectf dest, void|float opacity ) 
 {
     opacity = opacity || 1.0;
@@ -127,11 +133,10 @@ public void set_spacing( void|int spc )
 protected void create( string image_file )
 {
     string my_data = Image.load_file( image_file );
-    mapping m = Image.PNG._decode( my_data );
-    Image.Image my_image = m["image"];
-    Image.Image my_alpha = m["alpha"];
+    object my_image = Image.PNG.decode( my_data );
+    object my_alpha = Image.PNG.decode_alpha( my_data );
     // Lose 1 pixel from height - that's the top row with the pink spacers.
-    font_height = my_image->ysize() - 1;
+    font_height = (int) my_image->ysize() - 1;
     
     int x     = 0;
     int begin = 0;
@@ -151,10 +156,10 @@ protected void create( string image_file )
             } while ( !equal(my_image->getpixel(x, 0), pink) );
             end = x;    // index of first pink pixel after character
             
-            Image.Image section = my_image->copy( begin, 1, 
-                                                  end - 1, font_height );
-            Image.Image section_a = my_alpha->copy( begin, 1, 
-                                                    end - 1, font_height );
+            object section = (object) my_image->copy( 
+                    begin, 1, end - 1, font_height );
+            object section_a = (object) my_alpha->copy( 
+                    begin, 1, end - 1, font_height );
             object o = .EasyGL.Texture( 
                     ({ (["image":section,"alpha":section_a]) }) );
 

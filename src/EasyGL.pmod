@@ -19,6 +19,9 @@
 
 
 
+#pragma strict_types
+
+
 import GL;
 
 
@@ -47,7 +50,7 @@ void set_up( int window_w,
     glOrtho( 0.0, (float) window_w, (float) window_h, 0.0, -1.0, 1.0 );
     glEnable( GL_BLEND );
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-    glClearColor( @clear_color );
+    glClearColor( clear_color );
 
     initialized = 1;
 
@@ -59,7 +62,7 @@ void draw_box( Rectf r, Image.Color.Color c, void|float line_w )
 {
     glLineWidth( line_w || 1.0 );
     glEnable( GL_LINE_SMOOTH );
-    glColor( @c->rgbf(), 1.0 );
+    glColor( (array(float)) c->rgbf(), 1.0 );
     glBegin( GL_LINE_LOOP );
         glVertex( r->x0, r->y0, 0.0 );
         glVertex( r->x1, r->y0, 0.0 );
@@ -73,7 +76,7 @@ void draw_box( Rectf r, Image.Color.Color c, void|float line_w )
 
 void fill_box( Rectf r, Image.Color.Color c )
 {
-    glColor( @c->rgbf(), 1.0 );
+    glColor( (array(float)) c->rgbf(), 1.0 );
     glBegin( GL_QUADS );
         glVertex( r->x0, r->y0, 0.0 );
         glVertex( r->x1, r->y0, 0.0 );
@@ -91,7 +94,7 @@ void draw_line( Rectf from_to,
 {
     glLineWidth( line_w || 1.0 );
     glEnable( GL_LINE_SMOOTH );
-    glColor( @c->rgbf(), 1.0 );
+    glColor( (array(float)) c->rgbf(), 1.0 );
     glBegin( GL_LINES );
         glVertex( from_to->x0, from_to->y0 );
         glVertex( from_to->x1, from_to->y1 );
@@ -274,14 +277,14 @@ class Texture
         // TODO: check array size!
         rgb_bg = rgb_bg || ({0,0,0});
 
-        image_w = images[0]["image"]->xsize();
-        image_h = images[0]["image"]->ysize();
+        image_w = (int) images[0]["image"]->xsize();
+        image_h = (int) images[0]["image"]->ysize();
         texture_w = next_power_of_two( image_w );
         texture_h = next_power_of_two( image_h );
         half_texture_w = texture_w / 2;
         half_texture_h = texture_h / 2;
 
-        foreach ( images, mapping(string:mixed) m )
+        foreach ( images, mapping m )
         {
             // Do we need to resize?
             if ( image_w < texture_w || image_h < texture_h )
@@ -297,7 +300,7 @@ class Texture
 
             int name = glGenTextures( 1 )[0];
             glBindTexture( GL_TEXTURE_2D, name );
-            names = Array.push( names, name );
+            names = (array(int)) Array.push( names, name );
             glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
             glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
             glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     GL_CLAMP );
