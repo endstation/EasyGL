@@ -19,9 +19,6 @@
 
 
 
-#pragma strict_types
-
-
 import GL;
 
 
@@ -50,7 +47,7 @@ void set_up( int window_w,
     glOrtho( 0.0, (float) window_w, (float) window_h, 0.0, -1.0, 1.0 );
     glEnable( GL_BLEND );
     glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-    glClearColor( clear_color );
+    glClearColor( @clear_color );
 
     initialized = 1;
 
@@ -62,7 +59,7 @@ void draw_box( Rectf r, Image.Color.Color c, void|float line_w )
 {
     glLineWidth( line_w || 1.0 );
     glEnable( GL_LINE_SMOOTH );
-    glColor( (array(float)) c->rgbf(), 1.0 );
+    glColor( @c->rgbf(), 1.0 );
     glBegin( GL_LINE_LOOP );
         glVertex( r->x0, r->y0, 0.0 );
         glVertex( r->x1, r->y0, 0.0 );
@@ -76,7 +73,7 @@ void draw_box( Rectf r, Image.Color.Color c, void|float line_w )
 
 void fill_box( Rectf r, Image.Color.Color c )
 {
-    glColor( (array(float)) c->rgbf(), 1.0 );
+    glColor( @c->rgbf(), 1.0 );
     glBegin( GL_QUADS );
         glVertex( r->x0, r->y0, 0.0 );
         glVertex( r->x1, r->y0, 0.0 );
@@ -94,7 +91,7 @@ void draw_line( Rectf from_to,
 {
     glLineWidth( line_w || 1.0 );
     glEnable( GL_LINE_SMOOTH );
-    glColor( (array(float)) c->rgbf(), 1.0 );
+    glColor( @c->rgbf(), 1.0 );
     glBegin( GL_LINES );
         glVertex( from_to->x0, from_to->y0 );
         glVertex( from_to->x1, from_to->y1 );
@@ -126,6 +123,36 @@ class Rectf
     public float y0;
     public float x1;
     public float y1;
+
+    // Since these are floats, not much point checking for equality (?!).
+    public int intersects( Rectf rhs )
+    {
+        return x0 >= rhs->x0 - (x1 - x0) 
+                && x0 <= rhs->x0 + (rhs->x1 - rhs->x0)
+                && y0 >= rhs->y0 - (y1 - y0)
+                && y0 <= rhs->y0 + (rhs->y1 - rhs->y0);
+
+    } // intersects()
+
+    public int intersects_x( Rectf rhs )
+    {
+        return x0 >= rhs->x0 - (x1 - x0)
+                && x0 <= rhs->x0 + (rhs->x1 - rhs->x0);
+
+    } // intersects_x()
+
+    public int intersects_y( Rectf rhs )
+    {
+        return y0 >= rhs->y0 - (y1 - y0)
+                && y0 <= rhs->y0 + (rhs->y1 - rhs->y0);
+
+    } // intersects_y()
+
+    public Rectf copy()
+    {
+        return Rectf( x0, y0, x1, y1 );
+
+    } // copy()
 
     protected void create( void|float x0_p,
                            void|float y0_p,
@@ -277,14 +304,14 @@ class Texture
         // TODO: check array size!
         rgb_bg = rgb_bg || ({0,0,0});
 
-        image_w = (int) images[0]["image"]->xsize();
-        image_h = (int) images[0]["image"]->ysize();
+        image_w = images[0]["image"]->xsize();
+        image_h = images[0]["image"]->ysize();
         texture_w = next_power_of_two( image_w );
         texture_h = next_power_of_two( image_h );
         half_texture_w = texture_w / 2;
         half_texture_h = texture_h / 2;
 
-        foreach ( images, mapping m )
+        foreach ( images, mapping(string:mixed) m )
         {
             // Do we need to resize?
             if ( image_w < texture_w || image_h < texture_h )
@@ -300,7 +327,7 @@ class Texture
 
             int name = glGenTextures( 1 )[0];
             glBindTexture( GL_TEXTURE_2D, name );
-            names = (array(int)) Array.push( names, name );
+            names = Array.push( names, name );
             glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
             glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
             glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     GL_CLAMP );

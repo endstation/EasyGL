@@ -129,12 +129,13 @@ public void set_spacing( void|int spc )
 
 // --------------------------------------------------
 // PROTECTED METHODS
-
-protected void create( string image_file )
+protected void create( string image_file, array(int) rgb )
 {
     string my_data = Image.load_file( image_file );
     object my_image = Image.PNG.decode( my_data );
     object my_alpha = Image.PNG.decode_alpha( my_data );
+    my_image->box( 0, 1, my_image->xsize(), my_image->ysize(), @rgb );
+
     // Lose 1 pixel from height - that's the top row with the pink spacers.
     font_height = (int) my_image->ysize() - 1;
     
@@ -175,7 +176,6 @@ protected void create( string image_file )
 
 // --------------------------------------------------
 // PRIVATE DATA
-
 private constant DEFAULT_SPACING = 5;
 private constant MIN_SPACING = 4;
 private constant MAX_SPACING = 20;
@@ -184,8 +184,6 @@ private constant NUM_FONT_CHARS = 94;
 private array(.EasyGL.Texture) my_font_chars = ({});
 private int spacing = DEFAULT_SPACING;
 private int font_height;
-
-
 
 
 constant SFontGL = (program) "SFontGL.pike";
