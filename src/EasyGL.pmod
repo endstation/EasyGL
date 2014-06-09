@@ -291,6 +291,20 @@ class Texture
     public int get_image_w() { return image_w; }
     public int get_image_h() { return image_h; }
 
+    public void replace_image( object image )
+    {
+        glEnable( GL_TEXTURE_2D );
+        glBindTexture( GL_TEXTURE_2D, names[0] );
+        glTexSubImage2D( GL_TEXTURE_2D, 0, 0, 0, (["rgb":image]) );
+        glDisable( GL_TEXTURE_2D );
+
+    } // replace_image()
+
+    public void delete()
+    {
+        glDeleteTextures( names[0] );
+    } // delete()
+
     // To prepare a PNG image, for example:
     //     string data = Image.load_file( "mypic.png" );
     //     mapping m = Image.PNG._decode( data );

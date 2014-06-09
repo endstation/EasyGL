@@ -26,6 +26,8 @@
 
 #pragma strict_types
 
+class SFontGL 
+{
 
 // --------------------------------------------------
 // PUBLIC METHODS
@@ -186,5 +188,6 @@ private int spacing = DEFAULT_SPACING;
 private int font_height;
 
 
-constant SFontGL = (program) "SFontGL.pike";
+} // class SFontGL
+
 

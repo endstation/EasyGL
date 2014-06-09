@@ -27,7 +27,7 @@ int main()
 {
     .EasyGL.set_up( 640, 480, ({0.1,0.1,0.1}) );
     SDL.set_caption( "EasyGL example #2", "" );
-    .SFontGL my_font = .SFontGL( "DejaVuSerif_32_black.png", 
+    .SFontGL.SFontGL my_font = .SFontGL.SFontGL( "dejavu_serif_bold_28.png", 
             ({244, 203, 10}) );
     // Default spacing (between words) is 5 pixels, which can sometimes 
     // be a bit too short.
