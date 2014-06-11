@@ -39,13 +39,14 @@ int main()
     // It's very easy to add support for other formats if you need them.
     string data = Image.load_file( "passarinho.svg" );
     mapping m   = Image.SVG._decode( data );
-    .EasyGL.Texture tex = .EasyGL.Texture( ({m}) );
+    //.EasyGL.Texture tex = .EasyGL.Texture( ({m}) );
+    .EasyGL.Texture tex = .EasyGL.Texture( /*"passarinho.svg"*/m );
 
     // We're going to draw it at coordinates 50,50.
     .EasyGL.Rectf dest = .EasyGL.Rectf( 50.0, 50.0 );
     // The 2nd argument to draw() is the opacity.  '1.0' means full opacity; 0.0
     // full transparency.
-    tex->draw( 0, dest, 1.0 );
+    tex->draw( dest, 1.0, 32.0 );
 
     // Swap buffers so we can see our texture.
     SDL.gl_swap_buffers();

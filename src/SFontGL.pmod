@@ -45,12 +45,14 @@ public void draw( string text, .EasyGL.Rectf dest, void|float opacity )
         int index = text[i] - BEGIN_ASCII;
         if ( index < 0 || index >= NUM_FONT_CHARS )
         {
-            dest->x0 += spacing;
+            dest->x0 += m_spacing;
         }
         else
         {
-            my_font_chars[index]->draw( 0, dest, opacity );
-            dest->x0 += my_font_chars[index]->get_image_w();
+            //my_font_chars[index]->draw( dest, opacity );
+            m_tex->draw_section( dest, m_char_rects[index], opacity );
+            //dest->x0 += my_font_chars[index]->get_image_w();
+            dest->x0 += (m_char_rects[index]->x1 - m_char_rects[index]->x0);
         } // if ... else
     } // for
 
@@ -80,11 +82,12 @@ public int text_width( string text )
         int index = text[i] - BEGIN_ASCII;
         if ( index < 0 || index >= NUM_FONT_CHARS )
         {
-            width += spacing;
+            width += m_spacing;
         }
         else
         {
-            width += my_font_chars[index]->get_image_w();
+            //width += my_font_chars[index]->get_image_w();
+            width += (int) (m_char_rects[index]->x1 - m_char_rects[index]->x0);
         } // if ... else
     } // for
     
@@ -94,11 +97,11 @@ public int text_width( string text )
 
 // --------------------------------------------------
 
-public int text_height() { return font_height; }
+public int text_height() { return m_font_height; }
 
 // --------------------------------------------------
 
-public int get_spacing() { return spacing; }
+public int get_spacing() { return m_spacing; }
 
 // --------------------------------------------------
  
@@ -108,20 +111,20 @@ public void set_spacing( void|int spc )
     {
         if ( spc < MIN_SPACING )
         {
-            spacing = MIN_SPACING;
+            m_spacing = MIN_SPACING;
         }
         else if ( spc > MAX_SPACING )
         {
-            spacing = MAX_SPACING;
+            m_spacing = MAX_SPACING;
         }
         else
         {
-            spacing = spc;
+            m_spacing = spc;
         } // if ... else
     }
     else
     {
-        spacing = DEFAULT_SPACING;
+        m_spacing = DEFAULT_SPACING;
     } // if ... else
     
 } // set_spacing()    
@@ -139,7 +142,7 @@ protected void create( string image_file, array(int) rgb )
     my_image->box( 0, 1, my_image->xsize(), my_image->ysize(), @rgb );
 
     // Lose 1 pixel from height - that's the top row with the pink spacers.
-    font_height = (int) my_image->ysize() - 1;
+    m_font_height = (int) my_image->ysize() - 1;
     
     int x     = 0;
     int begin = 0;
@@ -159,17 +162,14 @@ protected void create( string image_file, array(int) rgb )
             } while ( !equal(my_image->getpixel(x, 0), pink) );
             end = x;    // index of first pink pixel after character
             
-            object section = (object) my_image->copy( 
-                    begin, 1, end - 1, font_height );
-            object section_a = (object) my_alpha->copy( 
-                    begin, 1, end - 1, font_height );
-            object o = .EasyGL.Texture( 
-                    ({ (["image":section,"alpha":section_a]) }) );
-
-            my_font_chars += ({ o });
+            .EasyGL.Rectf r = .EasyGL.Rectf( (float) begin, 1.0, 
+                    (float) (end - 1), (float) m_font_height );
+            m_char_rects += ({ r });
         } // if 
         ++x;
     } // while
+
+    m_tex = .EasyGL.Texture( (["image":my_image, "alpha":my_alpha]) );
 
 } // create()
 
@@ -183,9 +183,11 @@ private constant MIN_SPACING = 4;
 private constant MAX_SPACING = 20;
 private constant BEGIN_ASCII = 33;
 private constant NUM_FONT_CHARS = 94;
-private array(.EasyGL.Texture) my_font_chars = ({});
-private int spacing = DEFAULT_SPACING;
-private int font_height;
+
+private int                     m_spacing = DEFAULT_SPACING;
+private int                     m_font_height;
+private array(.EasyGL.Rectf)    m_char_rects = ({});
+private .EasyGL.Texture         m_tex;
 
 
 } // class SFontGL

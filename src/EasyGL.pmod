@@ -154,6 +154,12 @@ class Rectf
 
     } // copy()
 
+    public string to_s()
+    {
+        return sprintf( "%f,%f,%f,%f", x0, y0, x1, y1 );
+
+    } // to_s()
+
     protected void create( void|float x0_p,
                            void|float y0_p,
                            void|float x1_p,
@@ -172,13 +178,12 @@ class Rectf
 
 class Texture
 { 
-    public void draw( int index,
-                      Rectf dest, 
+    public void draw( Rectf dest, 
                       float opacity, 
                       void|float rotation )
     {
         glEnable( GL_TEXTURE_2D );
-        glBindTexture( GL_TEXTURE_2D, names[index] );
+        glBindTexture( GL_TEXTURE_2D, name );
         glColor( 1.0, 1.0, 1.0, opacity );
 
         glMatrixMode( GL_MODELVIEW );
@@ -211,13 +216,12 @@ class Texture
 
     } // draw()
         
-    public void draw_section( int index,
-                              Rectf dest, 
+    public void draw_section( Rectf dest, 
                               Rectf src, 
                               float alpha )
     {
         glEnable( GL_TEXTURE_2D );
-        glBindTexture( GL_TEXTURE_2D, names[index] );
+        glBindTexture( GL_TEXTURE_2D, name );
         glColor( 1.0, 1.0, 1.0, alpha );
 
         float x1 = src->x0 / texture_w;
@@ -246,14 +250,13 @@ class Texture
 
     } // draw_section()
 
-    public void draw_scaled( int index,
-                             Rectf dest,
+    public void draw_scaled( Rectf dest,
                              float opacity,
                              float scale_factor,
                              void|float rotation )                   
     {
         glEnable( GL_TEXTURE_2D );
-        glBindTexture( GL_TEXTURE_2D, names[0] );
+        glBindTexture( GL_TEXTURE_2D, name );
         glColor( 1.0, 1.0, 1.0, opacity );
 
         float half_scaled_w = texture_w * scale_factor / 2.0;
@@ -294,7 +297,7 @@ class Texture
     public void replace_image( object image )
     {
         glEnable( GL_TEXTURE_2D );
-        glBindTexture( GL_TEXTURE_2D, names[0] );
+        glBindTexture( GL_TEXTURE_2D, name );
         glTexSubImage2D( GL_TEXTURE_2D, 0, 0, 0, (["rgb":image]) );
         glDisable( GL_TEXTURE_2D );
 
@@ -302,66 +305,78 @@ class Texture
 
     public void delete()
     {
-        glDeleteTextures( names[0] );
+        glDeleteTextures( name );
+
     } // delete()
 
-    // To prepare a PNG image, for example:
-    //     string data = Image.load_file( "mypic.png" );
-    //     mapping m = Image.PNG._decode( data );
-    //     .EasyGL.Texture tex = .EasyGL.Texture( ({m}) );
-    // All images should be exactly the same dimensions and format (i.e. all
-    // with an alpha channel or all without an alpha channel).
-    protected void create( array(mapping) images, 
-                           void|array(int) rgb_bg )
+    // TODO: check that EasyGL has been initialized!
+    protected void create( string|mapping filepath )
     {
-        // TODO: check that EasyGL has been initialized!
-        // TODO: check array size!
-        rgb_bg = rgb_bg || ({0,0,0});
+        mapping m;
 
-        image_w = images[0]["image"]->xsize();
-        image_h = images[0]["image"]->ysize();
+        if ( stringp(filepath) )
+        {
+            string data = Image.load_file( filepath );
+            int is_svg = 0;
+            if ( has_suffix(lower_case(filepath), "svg") ) 
+            {
+                is_svg = 1;
+            } // if
+
+            if ( is_svg )
+            {
+                m = Image.SVG._decode( data );
+            }
+            else
+            {
+                m = Image.ANY._decode( data );
+            } // if ... else
+        }
+        else if ( mappingp(filepath) )
+        {
+            m = filepath;
+        } // if ... else
+
+        image_w = m["image"]->xsize();
+        image_h = m["image"]->ysize();
         texture_w = next_power_of_two( image_w );
         texture_h = next_power_of_two( image_h );
         half_texture_w = texture_w / 2;
         half_texture_h = texture_h / 2;
 
-        foreach ( images, mapping(string:mixed) m )
+        // Do we need to resize?
+        if ( image_w < texture_w || image_h < texture_h )
         {
-            // Do we need to resize?
-            if ( image_w < texture_w || image_h < texture_h )
-            {
-                m["image"] = m["image"]->copy( 0, 0, texture_w - 1, 
-                        texture_h - 1, @rgb_bg );
-                if ( m["alpha"] )
-                {
-                    m["alpha"] = m["alpha"]->copy( 0, 0, texture_w - 1, 
-                            texture_h - 1 );
-                } // if
-            } // if
-
-            int name = glGenTextures( 1 )[0];
-            glBindTexture( GL_TEXTURE_2D, name );
-            names = Array.push( names, name );
-            glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
-            glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-            glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     GL_CLAMP );
-            glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     GL_CLAMP );
-
+            m["image"] = m["image"]->copy( 0, 0, texture_w-1, texture_h-1,
+                    0, 0, 0 );
             if ( m["alpha"] )
             {
-                glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, 0, 
-                        (["rgb":m["image"], "alpha":m["alpha"]]) );
-            }
-            else
-            {
-                glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, 0, 
-                        (["rgb":m["image"]]) );
-            } // if ... else
-        } // foreach
+                m["alpha"] = m["alpha"]->copy( 0, 0, texture_w-1, texture_h-1,
+                        0, 0, 0 );
+            } // if
+        } // if
+
+        name = glGenTextures( 1 )[0];
+        glBindTexture( GL_TEXTURE_2D, name );
+        glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+        glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+        glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,     GL_CLAMP );
+        glTexParameter( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T,     GL_CLAMP );
+
+            
+        if ( m["alpha"] )
+        {
+            glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, 0, 
+                    (["rgb":m["image"], "alpha":m["alpha"]]) );
+        }
+        else
+        {
+            glTexImage2D( GL_TEXTURE_2D, 0, GL_RGB, 0, (["rgb":m["image"]]) );
+        } // if ... else
 
     } // create()
 
-    private array(int) names = ({});
+    private int name;
     private int image_w;
     private int image_h;
     private int texture_w;
