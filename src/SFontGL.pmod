@@ -49,9 +49,7 @@ public void draw( string text, .EasyGL.Rectf dest, void|float opacity )
         }
         else
         {
-            //my_font_chars[index]->draw( dest, opacity );
             m_tex->draw_section( dest, m_char_rects[index], opacity );
-            //dest->x0 += my_font_chars[index]->get_image_w();
             dest->x0 += (m_char_rects[index]->x1 - m_char_rects[index]->x0);
         } // if ... else
     } // for
@@ -86,7 +84,6 @@ public int text_width( string text )
         }
         else
         {
-            //width += my_font_chars[index]->get_image_w();
             width += (int) (m_char_rects[index]->x1 - m_char_rects[index]->x0);
         } // if ... else
     } // for

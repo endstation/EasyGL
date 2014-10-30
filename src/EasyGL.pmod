@@ -71,9 +71,9 @@ void draw_box( Rectf r, Image.Color.Color c, void|float line_w )
 
 // --------------------------------------------------
 
-void fill_box( Rectf r, Image.Color.Color c )
+void fill_box( Rectf r, Image.Color.Color c, float opacity )
 {
-    glColor( @c->rgbf(), 1.0 );
+    glColor( @c->rgbf(), opacity );
     glBegin( GL_QUADS );
         glVertex( r->x0, r->y0, 0.0 );
         glVertex( r->x1, r->y0, 0.0 );
@@ -87,11 +87,12 @@ void fill_box( Rectf r, Image.Color.Color c )
 
 void draw_line( Rectf from_to, 
                 Image.Color.Color c, 
+                float opacity,
                 void|float line_w )
 {
     glLineWidth( line_w || 1.0 );
     glEnable( GL_LINE_SMOOTH );
-    glColor( @c->rgbf(), 1.0 );
+    glColor( @c->rgbf(), opacity );
     glBegin( GL_LINES );
         glVertex( from_to->x0, from_to->y0 );
         glVertex( from_to->x1, from_to->y1 );
@@ -218,34 +219,46 @@ class Texture
         
     public void draw_section( Rectf dest, 
                               Rectf src, 
-                              float alpha )
+                              float opacity,
+                              void|float rotation )
     {
         glEnable( GL_TEXTURE_2D );
         glBindTexture( GL_TEXTURE_2D, name );
-        glColor( 1.0, 1.0, 1.0, alpha );
+        glColor( 1.0, 1.0, 1.0, opacity );
 
+        glMatrixMode( GL_MODELVIEW );
+        glPushMatrix();
+        glLoadIdentity();
+
+        float half_w = (src->x1 - src->x0) * 0.5;
+        float half_h = (src->y1 - src->y0) * 0.5;
+        glTranslate( dest->x0 + half_w, dest->y0 + half_h, 0.0 );
+        if ( rotation )
+        {
+            glRotate( rotation, 0.0, 0.0, 1.0 );
+        } // if
+        
         float x1 = src->x0 / texture_w;
         float x2 = src->x1 / texture_w;
         float y1 = src->y0 / texture_h;
         float y2 = src->y1 / texture_h;
-        dest->x1 = dest->x0 + src->x1 - src->x0;
-        dest->y1 = dest->y0 + src->y1 - src->y0;
                     
         glBegin( GL_QUADS );
             // top-left
             glTexCoord( x1, y1 );
-            glVertex( dest->x0, dest->y0 );
+            glVertex( -half_w, -half_h );
             // top-right
             glTexCoord( x2, y1 );
-            glVertex( dest->x1, dest->y0 );
+            glVertex( half_w, -half_h );
             // bottom-right
             glTexCoord( x2, y2 );
-            glVertex( dest->x1, dest->y1 );
+            glVertex( half_w, half_h );
             // bottom-left
             glTexCoord( x1, y2 );
-            glVertex( dest->x0, dest->y1 );
+            glVertex( -half_w, half_h );
         glEnd();
 
+        glPopMatrix();
         glDisable( GL_TEXTURE_2D );
 
     } // draw_section()
