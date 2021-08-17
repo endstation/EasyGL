@@ -1,7 +1,5 @@
-// $Id: SFontGL.pike 12 2011-02-20 09:48:09Z mafferyew@googlemail.com $
-
 // EasyGL
-// Copyright 2011 Matthew Clarke <pclar7@yahoo.co.uk>
+// Copyright 2011-2021 Matthew Clarke <pclar7@yahoo.co.uk>
 
 // This file is part of EasyGL.
 //
@@ -26,8 +24,6 @@
 
 #pragma strict_types
 
-class SFontGL 
-{
 
 // --------------------------------------------------
 // PUBLIC METHODS
@@ -35,36 +31,39 @@ class SFontGL
 // method that makes a copy of that Rectf and then calls a private method
 // that does all the work (and calls itself recursively) on that copy.
 // See also draw_center().
-public void draw( string text, .EasyGL.Rectf dest, void|float opacity ) 
+public void draw(string text, EasyGL.Rectf dest, void|float opacity) 
 {
     opacity = opacity || 1.0;
 
-    int len = sizeof( text );
-    for ( int i = 0; i < len; ++i )
+    int len = sizeof(text);
+
+    m_tex->start_draw();
+    for (int i = 0; i < len; ++i)
     {
         int index = text[i] - BEGIN_ASCII;
-        if ( index < 0 || index >= NUM_FONT_CHARS )
+        if (index < 0 || index >= NUM_FONT_CHARS)
         {
-            dest->x0 += m_spacing;
+            dest->x += m_spacing;
         }
         else
         {
-            m_tex->draw_section( dest, m_char_rects[index], opacity );
-            dest->x0 += (m_char_rects[index]->x1 - m_char_rects[index]->x0);
+            m_tex->draw_section_no_bind(dest, m_char_rects[index], opacity);
+            dest->x += (m_char_rects[index]->w);
         } // if ... else
     } // for
+    m_tex->end_draw();
 
 } // draw()
 
 // --------------------------------------------------
 
 public void draw_center( string text,
-                         .EasyGL.Rectf dest,
+                         EasyGL.Rectf dest,
                          int screen_width,
                          void|float opacity )
 {
     int tw = text_width( text );
-    dest->x0 = (screen_width - tw) / 2.0;
+    dest->x = (screen_width - tw) / 2.0;
     draw( text, dest, opacity );
     
 } // draw_center()
@@ -84,7 +83,7 @@ public int text_width( string text )
         }
         else
         {
-            width += (int) (m_char_rects[index]->x1 - m_char_rects[index]->x0);
+            width += (int) (m_char_rects[index]->w);
         } // if ... else
     } // for
     
@@ -131,7 +130,7 @@ public void set_spacing( void|int spc )
 
 // --------------------------------------------------
 // PROTECTED METHODS
-protected void create( string image_file, array(int) rgb )
+protected void create(string image_file, array(int) rgb, void|int mag_filter)
 {
     string my_data = Image.load_file( image_file );
     object my_image = Image.PNG.decode( my_data );
@@ -159,14 +158,24 @@ protected void create( string image_file, array(int) rgb )
             } while ( !equal(my_image->getpixel(x, 0), pink) );
             end = x;    // index of first pink pixel after character
             
-            .EasyGL.Rectf r = .EasyGL.Rectf( (float) begin, 1.0, 
-                    (float) (end - 1), (float) m_font_height );
+            EasyGL.Rectf r = EasyGL.Rectf(
+                    (float) begin, 
+                    1.0, 
+                    (float) (end - begin + 1), 
+                    (float) m_font_height);
             m_char_rects += ({ r });
         } // if 
         ++x;
     } // while
 
-    m_tex = .EasyGL.Texture( (["image":my_image, "alpha":my_alpha]) );
+    if (!zero_type(mag_filter))
+    {
+        m_tex = EasyGL.Texture((["image":my_image, "alpha":my_alpha]), mag_filter);
+    }
+    else
+    {
+        m_tex = EasyGL.Texture( (["image":my_image, "alpha":my_alpha]) );
+    } // if ... else
 
 } // create()
 
@@ -181,12 +190,10 @@ private constant MAX_SPACING = 20;
 private constant BEGIN_ASCII = 33;
 private constant NUM_FONT_CHARS = 94;
 
-private int                     m_spacing = DEFAULT_SPACING;
-private int                     m_font_height;
-private array(.EasyGL.Rectf)    m_char_rects = ({});
-private .EasyGL.Texture         m_tex;
+private int                 m_spacing = DEFAULT_SPACING;
+private int                 m_font_height;
+private array(EasyGL.Rectf) m_char_rects = ({});
+private EasyGL.Texture      m_tex;
 
-
-} // class SFontGL
 
 

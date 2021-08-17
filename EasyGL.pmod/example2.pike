@@ -1,7 +1,5 @@
-// $Id: example2.pike 12 2011-02-20 09:48:09Z mafferyew@googlemail.com $
-
 // EasyGL
-// Copyright 2011 Matthew Clarke <pclar7@yahoo.co.uk>
+// Copyright 2011-2021 Matthew Clarke <pclar7@yahoo.co.uk>
 
 // This file is part of EasyGL.
 //
@@ -21,23 +19,24 @@
 
 // Load a font image into SFontGL and write some text to the screen.
 
-import GL;
+//import GL;
+//import EasyGL;
 
 int main()
 {
-    .EasyGL.set_up( 640, 480, ({0.1,0.1,0.1}) );
+    EasyGL.EasyGL.set_up( 640, 480, ({0.1,0.1,0.1}) );
     SDL.set_caption( "EasyGL example #2", "" );
-    .SFontGL.SFontGL my_font = .SFontGL.SFontGL( "dejavu_serif_bold_28.png", 
+    EasyGL.SFontGL my_font = EasyGL.SFontGL( "dejavu_serif_bold_28.png", 
             ({244, 203, 10}) );
     // Default spacing (between words) is 5 pixels, which can sometimes 
     // be a bit too short.
     my_font->set_spacing( 12 );
 
-    glClear( GL_COLOR_BUFFER_BIT );
-    .EasyGL.Rectf dest = .EasyGL.Rectf( 50.0, 50.0 );
+    GL.glClear( GL.GL_COLOR_BUFFER_BIT );
+    EasyGL.Rectf dest = EasyGL.Rectf( 50.0, 50.0 );
     my_font->draw( "Hello, Pike!", dest, 0.3 );
 
-    dest->y0 = 150.0;
+    dest->y = 150.0;
     my_font->draw_center( "How are you?", dest, 640 );
 
     SDL.gl_swap_buffers();

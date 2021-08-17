@@ -1,7 +1,5 @@
-// $Id: example1.pike 12 2011-02-20 09:48:09Z mafferyew@googlemail.com $
-
 // EasyGL
-// Copyright 2011 Matthew Clarke <pclar7@yahoo.co.uk>
+// Copyright 2011-2021 Matthew Clarke <pclar7@yahoo.co.uk>
 
 // This file is part of EasyGL.
 //
@@ -26,27 +24,30 @@
 
 #pragma strict_types
 
-import GL;
+//import GL;
+//import EasyGL;
 
 int main()
 {
     // Set up and clear screen.
-    .EasyGL.set_up( 640, 480, ({0.3,0.2,0.3}) );
+    EasyGL.EasyGL.set_up( 640, 480, ({0.3,0.2,0.3}) );
     SDL.set_caption( "EasyGL example #1", "" );
-    glClear( GL_COLOR_BUFFER_BIT );
+    GL.glClear( GL.GL_COLOR_BUFFER_BIT );
 
     // Create a texture.  At the moment, both PNG and SVG files are supported.
     // It's very easy to add support for other formats if you need them.
     string data = Image.load_file( "passarinho.svg" );
     mapping m   = Image.SVG._decode( data );
     //.EasyGL.Texture tex = .EasyGL.Texture( ({m}) );
-    .EasyGL.Texture tex = .EasyGL.Texture( /*"passarinho.svg"*/m );
+    EasyGL.Texture tex = EasyGL.Texture( /*"passarinho.svg"*/m );
 
     // We're going to draw it at coordinates 50,50.
-    .EasyGL.Rectf dest = .EasyGL.Rectf( 50.0, 50.0 );
+    EasyGL.Rectf dest = EasyGL.Rectf( 50.0, 50.0 );
     // The 2nd argument to draw() is the opacity.  '1.0' means full opacity; 0.0
     // full transparency.
     tex->draw( dest, 1.0, 32.0 );
+    //EasyGL.Rectf src = EasyGL.Rectf(128.0, 0.0, 128.0, 128.0);
+    //tex->draw_section(dest, src, 1.0);
 
     // Swap buffers so we can see our texture.
     SDL.gl_swap_buffers();
